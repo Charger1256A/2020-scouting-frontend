@@ -5,10 +5,25 @@ import auto from '../screens/auto'
 
 const screens = {
     MatchListScreen: {
-        screen: matchlist
+        screen: matchlist,
+        navigationOptions: {
+            title: 'Matches',
+
+            headerStyle: {
+                backgroundColor: '#3486eb'
+            },
+        }
     },
     AutoScreen: {
-        screen: auto
+        screen: auto,
+
+        navigationOptions: {
+            title: 'Auto',
+
+            headerStyle: {
+                backgroundColor: '#3486eb'
+            },
+        }
     }
 
 }
