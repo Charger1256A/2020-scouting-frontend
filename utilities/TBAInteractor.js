@@ -12,7 +12,7 @@ export const pullMatches = (eventKey) => {
           for (var match in res) {
             let rawMatchData = res[match]
             if (rawMatchData.comp_level != "qm") continue;
-            let matchData = {team: rawMatchData.alliances.blue.team_keys[2].replace("frc", ""), matchNo: rawMatchData.key.replace(`${eventKey}_`, "").replace("m", "").toUpperCase(), scouted: false, scouter: ""};
+            let matchData = {team: rawMatchData.alliances.red.team_keys[2].replace("frc", ""), matchNo: rawMatchData.key.replace(`${eventKey}_`, "").replace("m", "").toUpperCase(), scouted: false, scouter: ""};
             matches.push(matchData);
           }
           return matches;

@@ -1,22 +1,9 @@
-// import React from 'react';
-// import { Text } from 'react-native';
-// import { pullMatches } from '../utilities/TBAInteractor';
-
-// class MatchList extends React.Component {
-    
-//     render () {
-//         return (
-//             <Text>Hello</Text>
-//         )
-//     }
-// }
-
-// export default MatchList;
-
 import React from 'react';
 import { TouchableOpacity, Button, ScrollView, StyleSheet, AlertIOS, AsyncStorage, Text, Alert } from 'react-native';
 import { pullMatches } from '../utilities/TBAInteractor';
 import { ListItem, Icon } from 'react-native-elements';
+
+let alliance = "blue";
 
 
 class MatchList extends React.Component {
@@ -82,13 +69,14 @@ class MatchList extends React.Component {
             navigation.navigate('QRCode', {data: JSON.parse(data)})
           })
         } else {
-          navigation.navigate('Auto', {
-            team: match.team,
-            match: match.matchNo,
-            practice: false,
-            alliance: alliance,
-            event: event
-          })
+          this.props.navigation.navigate('PrematchScreen', { team: match.team, match: match.matchNo, practice: false, alliance: alliance, event: event })
+          // navigation.navigate('Prematch', {
+          //   team: match.team,
+          //   match: match.matchNo,
+          //   practice: false,
+          //   alliance: alliance,
+          //   event: event
+          // })
         }
       }
 
