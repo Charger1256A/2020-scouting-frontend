@@ -3,6 +3,7 @@ import { createAppContainer } from 'react-navigation'
 import matchlist from '../screens/matchlist'
 import prematch from '../screens/prematch'
 import auto from '../screens/auto'
+import scoringmodal from '../screens/ScoringModal'
 
 const screens = {
     MatchListScreen: {
@@ -50,7 +51,23 @@ const screens = {
                 color: 'white'
               }
         }
-    }
+    },
+    ModalScreen: {
+        screen: scoringmodal,
+
+        navigationOptions: {
+            title: 'Modal',
+            headerTintColor: 'white',
+
+            headerStyle: {
+                backgroundColor: '#3486eb'
+            },
+
+            headerTitleStyle: {
+                color: 'white'
+              }
+        }
+    },
 
 }
 
