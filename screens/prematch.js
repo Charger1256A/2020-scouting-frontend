@@ -79,7 +79,7 @@ class Prematch extends React.Component {
               <TouchableOpacity style={prematchStyles.NextButton}
                 // continue button - checks if all fields have been filled out, alert user if fields are empty
                 onPress={() =>
-                  this.state.name != '' && this.state.team != '' && this.state.currentRobotPosition != '' ? this.props.navigation.navigate('ModalScreen', {
+                  this.state.name != '' && this.state.team != '' && this.state.currentRobotPosition != '' ? this.props.navigation.navigate('AutoScreen', {
                     data: { "team": this.state.team, "name": this.state.name, "match": this.state.match, "alliance": this.state.alliance, "startingPosition": this.state.currentRobotPosition, "event": this.state.event },
                     fieldOrientation: this.state.fieldOrientation
                   }) : alert('Please fill in all the information before proceeding.')

@@ -1,24 +1,43 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image, ScrollView } from 'react-native';
 import { Icon } from 'react-native-elements';
+import Modal from 'react-native-modal';
 import fieldImages from '../index';
 
+let positions = ["1", "2" , "3", "5", "6"];
+
+class Blink extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isShowingText: true };
+
+    // Toggle the text after 15 seconds
+    setTimeout(() => (
+      setInterval(() => (
+        this.setState(previousState => (
+          { isShowingText: !previousState.isShowingText }
+        ))
+      ), 100)
+    ), 15000);
+  }
+  render() {
+    if (!this.state.isShowingText) {
+      return null;
+    }
+    return (
+      <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>{this.props.text}</Text>
+    );
+  }
+}
 
 class Auto extends React.Component {
     render () {
+
         return (
-            <TouchableOpacity style={[prematchStyles.NextButton, {width: '100%'}]} onPress={() => {
-                this._toggleModal();
-                }}>
-                <View style={autoStyles.Center}>
-                    <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Modal</Text>
-                </View>
-            </TouchableOpacity>
+          <Text>hello</Text>
         )
     }
-    _toggleModal(){
-        
-    }
+    
 }
 autoStyles = StyleSheet.create({
     MainContainer: {
