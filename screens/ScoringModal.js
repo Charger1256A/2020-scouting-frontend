@@ -24,7 +24,7 @@ class ScoringModal extends React.Component {
                             <View style={{ flex: 0.2 }}>
                                 <Text style={[autoStyles.Font, { textAlign: 'center' }]}>Select Goal</Text>
                             </View>
-                            <View style={{ flex: 0.25, flexDirection: 'row', marginBottom: 50, marginHorizontal: 40 }}>
+                            <View style={{ flex: 0.35, flexDirection: 'row', marginBottom: 50, marginHorizontal: 40 }}>
                                 <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
                                     <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]} >
                                         <View style={[autoStyles.Center, { marginBottom: 20 }]}>
@@ -33,7 +33,7 @@ class ScoringModal extends React.Component {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                            <View style={{ flex: 0.25, flexDirection: 'row', marginBottom: 50, marginHorizontal: 40 }}>
+                            <View style={{ flex: 0.35, flexDirection: 'row', marginBottom: 50, marginHorizontal: 40 }}>
                                 <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
                                     <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]}>
                                         <View style={[autoStyles.Center, { marginBottom: 20 }]}>
@@ -42,7 +42,7 @@ class ScoringModal extends React.Component {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                            <View style={{ flex: 0.25, flexDirection: 'row', marginBottom: 50, marginHorizontal: 40 }}>
+                            <View style={{ flex: 0.35, flexDirection: 'row', marginBottom: 50, marginHorizontal: 40 }}>
                                 <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
                                     <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]}>
                                         <View style={[autoStyles.Center, { marginBottom: 20 }]}>
@@ -51,11 +51,19 @@ class ScoringModal extends React.Component {
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                            <View style={{ flex: 0.25, flexDirection: 'row', marginBottom: 50, marginHorizontal: 40 }}>
+                            <View style={{ flex: 0.62, flexDirection: 'row', marginBottom: 30, marginHorizontal: 40 }}>
+
                                 <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
                                     <TouchableOpacity style={[autoStyles.CancelButton, { width: '100%' }]} onPress={() => this._closemodal()}>
                                         <View style={[autoStyles.Center, { marginBottom: 20 }]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Cancel</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
+                                    <TouchableOpacity style={[autoStyles.SaveButton, { width: '100%' }]} onPress={() => this._closemodal()}>
+                                        <View style={[autoStyles.Center, { marginBottom: 20 }]}>
+                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Save</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
@@ -147,6 +155,13 @@ autoStyles = StyleSheet.create({
         borderRadius: 15,
         borderBottomWidth: 5,
         borderColor: '#d63e3e'
+    },
+    SaveButton: {
+        flex: 1,
+        backgroundColor: '#2E8B57',
+        borderRadius: 15,
+        borderBottomWidth: 5,
+        borderColor: '#006400'
     },
     ScoreButton: {
         flex: 1,
