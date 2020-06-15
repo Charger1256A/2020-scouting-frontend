@@ -3,7 +3,7 @@ import { TouchableOpacity, Button, ScrollView, StyleSheet, AlertIOS, AsyncStorag
 import { pullMatches } from '../utilities/TBAInteractor';
 import { ListItem, Icon } from 'react-native-elements';
 
-let alliance = "red";
+let alliance = "blue";
 
 
 class MatchList extends React.Component {
