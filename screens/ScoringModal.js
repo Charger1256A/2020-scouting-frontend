@@ -24,17 +24,27 @@ class ScoringModal extends React.Component {
                             <View style={{ flex: 0.2 }}>
                                 <Text style={[autoStyles.Font, { textAlign: 'center' }]}>Select Goal</Text>
                             </View>
+<<<<<<< Updated upstream
                             <View style={{ flex: 0.35, flexDirection: 'row', marginBottom: 50, marginHorizontal: 40 }}>
                                 <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
+=======
+                            <View style={{ flex: 0.25, flexDirection: 'row', marginBottom: 50 }}>
+                                <View style={[autoStyles.Center, { marginRight: 400 }, { marginLeft: 60 }]}>
+>>>>>>> Stashed changes
                                     <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]} >
-                                        <View style={[autoStyles.Center, { marginBottom: 20 }]}>
+                                        <View style={[autoStyles.Center]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Lower</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
                             </View>
+<<<<<<< Updated upstream
                             <View style={{ flex: 0.35, flexDirection: 'row', marginBottom: 50, marginHorizontal: 40 }}>
                                 <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
+=======
+                            <View style={{ flex: 0.25, flexDirection: 'row', marginBottom: 50 }}>
+                                <View style={[autoStyles.Center, { marginRight: 400 }, { marginLeft: 60 }]}>
+>>>>>>> Stashed changes
                                     <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]}>
                                         <View style={[autoStyles.Center, { marginBottom: 20 }]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Outer</Text>
@@ -42,8 +52,13 @@ class ScoringModal extends React.Component {
                                     </TouchableOpacity>
                                 </View>
                             </View>
+<<<<<<< Updated upstream
                             <View style={{ flex: 0.35, flexDirection: 'row', marginBottom: 50, marginHorizontal: 40 }}>
                                 <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
+=======
+                            <View style={{ flex: 0.25, flexDirection: 'row', marginBottom: 50 }}>
+                                <View style={[autoStyles.Center, { marginRight: 400 }, { marginLeft: 60 }]}>
+>>>>>>> Stashed changes
                                     <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]}>
                                         <View style={[autoStyles.Center, { marginBottom: 20 }]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Inner</Text>
