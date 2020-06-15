@@ -20,49 +20,115 @@ class ScoringModal extends React.Component {
 
                 <Modal animationInTiming={50} animationIn='fadeIn' animationOutTiming={50} animationOut='fadeOut' style={{ alignItems: 'center' }} isVisible={this.state.isModalVisible}>
                     <View style={autoStyles.ModalContent}>
-                        <View style={[autoStyles.Center, { margin: 10 }]}>
-                            <View style={{ flex: 0.2 }}>
+                        <View style={[autoStyles.Center]}>
+                            <View style={{ flex: 1 }}>
                                 <Text style={[autoStyles.Font, { textAlign: 'center' }]}>Select Goal</Text>
                             </View>
-                            <View style={{ flex: 0.25, flexDirection: 'row', marginBottom: 50 }}>
-                                <View style={[autoStyles.Center, { marginRight: 400 }, { marginLeft: 60 }]}>
+                        </View>
+                        <View style={[autoStyles.Left, { marginBottom: 10 }]}>
+                            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', marginLeft: 20, marginBottom: 50, marginTop: -200 }}>
+                                <View style={{ width: 390, height: 50, marginBottom: 10 }}>
                                     <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]} >
                                         <View style={[autoStyles.Center]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Lower</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
-                            </View>
-                            <View style={{ flex: 0.25, flexDirection: 'row', marginBottom: 50 }}>
-                                <View style={[autoStyles.Center, { marginRight: 400 }, { marginLeft: 60 }]}>
+                                <View style={{ width: 390, height: 50, marginBottom: 10 }}>
                                     <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]}>
-                                        <View style={[autoStyles.Center, { marginBottom: 20 }]}>
+                                        <View style={[autoStyles.Center]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Outer</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
-                            </View>
-                            <View style={{ flex: 0.25, flexDirection: 'row', marginBottom: 50 }}>
-                                <View style={[autoStyles.Center, { marginRight: 400 }, { marginLeft: 60 }]}>
+                                <View style={{ width: 390, height: 50, marginBottom: 10 }}>
                                     <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]}>
-                                        <View style={[autoStyles.Center, { marginBottom: 20 }]}>
+                                        <View style={[autoStyles.Center]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Inner</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
                             </View>
-                            <View style={{ flex: 0.62, flexDirection: 'row', marginBottom: 30, marginHorizontal: 40 }}>
-
+                            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', marginBottom: 50, marginTop: -295, marginLeft: 450 }}>
+                                <View style={{ width: 50, height: 50, marginBottom: 10 }}>
+                                    <TouchableOpacity style={[autoStyles.AddStackButton, { width: '100%' }]} onPress={() => {console.log(this._addLower(1));}}>
+                                        <View style={[autoStyles.Center]}>
+                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>+</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ width: 50, height: 50, marginBottom: 10 }}>
+                                    <TouchableOpacity style={[autoStyles.AddStackButton, { width: '100%' }]}>
+                                        <View style={[autoStyles.Center]}>
+                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>+</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ width: 50, height: 50, marginBottom: 10 }}>
+                                    <TouchableOpacity style={[autoStyles.AddStackButton, { width: '100%' }]}>
+                                        <View style={[autoStyles.Center]}>
+                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>+</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', marginBottom: 50, marginTop: -295, marginLeft: 525 }}>
+                                <View style={{ width: 50, height: 50, marginBottom: 10 }}>
+                                    <TouchableOpacity style={[autoStyles.SubtractStackButton, { width: '100%' }]} >
+                                        <View style={[autoStyles.Center]}>
+                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>-</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ width: 50, height: 50, marginBottom: 10 }}>
+                                    <TouchableOpacity style={[autoStyles.SubtractStackButton, { width: '100%' }]}>
+                                        <View style={[autoStyles.Center]}>
+                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>-</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ width: 50, height: 50, marginBottom: 10 }}>
+                                    <TouchableOpacity style={[autoStyles.SubtractStackButton, { width: '100%' }]}>
+                                        <View style={[autoStyles.Center]}>
+                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>-</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', marginBottom: 50, marginTop: -295, marginLeft: 600 }}>
+                                <View style={{ width: 200, height: 50, marginBottom: 10 }}>
+                                    <TouchableOpacity style={[autoStyles.ScoreView, { width: '100%' }]} >
+                                        <View style={[autoStyles.Center]}>
+                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Lower</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ width: 200, height: 50, marginBottom: 10 }}>
+                                    <TouchableOpacity style={[autoStyles.ScoreView, { width: '100%' }]}>
+                                        <View style={[autoStyles.Center]}>
+                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Outer</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ width: 200, height: 50, marginBottom: 10 }}>
+                                    <TouchableOpacity style={[autoStyles.ScoreView, { width: '100%' }]}>
+                                        <View style={[autoStyles.Center]}>
+                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Inner</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            <View style={{ flex: 0.62, flexDirection: 'row', marginBottom: 30 }}>
                                 <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
                                     <TouchableOpacity style={[autoStyles.CancelButton, { width: '100%' }]} onPress={() => this._closemodal()}>
-                                        <View style={[autoStyles.Center, { marginBottom: 20 }]}>
+                                        <View style={[autoStyles.Center]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Cancel</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
                                     <TouchableOpacity style={[autoStyles.SaveButton, { width: '100%' }]} onPress={() => this._closemodal()}>
-                                        <View style={[autoStyles.Center, { marginBottom: 20 }]}>
+                                        <View style={[autoStyles.Center]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Save</Text>
                                         </View>
                                     </TouchableOpacity>
@@ -123,6 +189,11 @@ class ScoringModal extends React.Component {
     _openControlPanel() {
         this.setState({ control: true })
     }
+    _addLower(n) { 
+        return (x) => {
+            return x + n;   
+        };
+    };
 }
 autoStyles = StyleSheet.create({
     MainContainer: {
@@ -141,6 +212,16 @@ autoStyles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    Left: {
+        flex: 1,
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start'
+    },
+    Right: {
+        flex: 1,
+        alignItems: 'flex-end',
+        justifyContent: 'flex-end'
     },
     ModalContent: {
         flex: 0.9,
@@ -170,12 +251,33 @@ autoStyles = StyleSheet.create({
         borderBottomWidth: 5,
         borderColor: '#13616d'
     },
+    AddStackButton: {
+        flex: 1,
+        backgroundColor: '#32CD32',
+        borderRadius: 15,
+        borderBottomWidth: 5,
+        borderColor: '#13616d'
+    }, 
+    SubtractStackButton: {
+        flex: 1,
+        backgroundColor: '#d63e3e',
+        borderRadius: 15,
+        borderBottomWidth: 5,
+        borderColor: '#13616d'
+    }, 
     UndoButton: {
         flex: 1,
         backgroundColor: '#ffae19',
         borderRadius: 7,
         borderBottomWidth: 5,
         borderColor: '#c98302'
+    },
+    ScoreView: {
+        flex: 1,
+        backgroundColor: '#fff',
+        borderRadius: 15,
+        borderBottomWidth: 5,
+        borderColor: '#13616d'
     }
 })
 

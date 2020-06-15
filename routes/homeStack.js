@@ -37,7 +37,7 @@ const screens = {
         }
     },
     AutoScreen: {
-        screen: auto,
+        screen: scoringmodal,
 
         navigationOptions: {
             title: 'Auto',
