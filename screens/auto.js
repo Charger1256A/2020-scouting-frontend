@@ -57,9 +57,33 @@ class Auto extends React.Component {
       <View style={{ flex: 1, backgroundColor: '#eaeaea' }}>
         <View style={{ flex: 0.874 }}>
           <View style={autoStyles.MainContainer}>
-            <ImageBackground style={{ flex: 1, resizeMode: 'contain', aspectRatio: 1.33 }} source={fieldImages[fieldOrientation + 2][alliance]}>
+          <View style={{flex: 0.7, borderWidth: 4, borderColor: '#d4d4d4'}}>
+            <ImageBackground style={{ flex: 1, resizeMode: 'contain', aspectRatio: 1.33 }} source={fieldImages[fieldOrientation][alliance]}>
             </ImageBackground>
+            </View>
+            <View style={{flex: 0.245, marginLeft: 300}}>
+            <ScrollView style={{flex: 0.88}}>
+            <Text style={[{fontWeight: 'bold'}, autoStyles.Font]}>Event Feed</Text>
+            </ScrollView>
+            <View style={{flex: 0.1, marginTop: 10, marginBottom: 50}}>
+            <Text style={autoStyles.Font}>Lower: {this.state.data.lower}</Text>
+            <Text style={autoStyles.Font}>Outer: {this.state.data.outer}</Text>
+              <Text style={autoStyles.Font}>Inner: {this.state.data.inner}</Text>
+              </View>
+            </View>
           </View>
+        </View>
+        <View style={{flex: 0.126, paddingHorizontal: 40, flexDirection: 'row'}}>
+        <TouchableOpacity style={[autoStyles.UndoButton, {marginHorizontal: 30, marginBottom:25}]}>
+        <View style={autoStyles.Center}>
+                <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Undo</Text>
+              </View>              
+        </TouchableOpacity>
+        <TouchableOpacity style={[prematchStyles.NextButton, {marginHorizontal: 30, marginBottom:25}]}>
+        <View style={autoStyles.Center}>
+                <Blink text='Continue to Teleop'/>
+              </View>              
+        </TouchableOpacity>
         </View>
       </View>
 
