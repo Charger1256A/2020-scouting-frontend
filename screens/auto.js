@@ -4,8 +4,8 @@ import { Icon } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import fieldImages from '../index';
 
-let positions = ["1", "2", "3", "5", "6"];
-let position1 = require('../assets/button_settings/Pos-1.json');
+// let positions = ["1", "2", "3", "5", "6"];
+let powerport = require('../assets/button_settings/powerport.json');
 
 class Blink extends React.Component {
   constructor(props) {
@@ -44,21 +44,32 @@ class Auto extends React.Component {
     data.lower = 0;
     data.outer = 0;
     data.inner = 0;
-    data.rotation = false;
-    data.position = false;
+    // data.rotation = false;
+    // data.position = false;
     this.setState({ data: data, initialTime: time })
   }
 
   render() {
     const alliance = this.state.data.alliance;
     const fieldOrientation = this.props.navigation.getParam("fieldOrientation");
-    const pos1 = position1[`${alliance}-${fieldOrientation}`];
+    const pos = powerport[`${alliance}-${fieldOrientation}`];
     return (
       <View style={{ flex: 1, backgroundColor: '#eaeaea' }}>
         <View style={{ flex: 0.874 }}>
           <View style={autoStyles.MainContainer}>
           <View style={{flex: 0.7, borderWidth: 4, borderColor: '#d4d4d4'}}>
-            <ImageBackground style={{ flex: 1, resizeMode: 'contain', aspectRatio: 1.33 }} source={fieldImages[fieldOrientation][alliance]}>
+            <ImageBackground style={{ flex: 1, resizeMode: 'contain', aspectRatio: 1.33 }} source={fieldImages[fieldOrientation][alliance]}>{
+              
+              pos.map((item, i) => (
+                <TouchableOpacity 
+                  key={i}
+                  style={{position: 'absolute', left: item.left, right: item.right, top: item.top, paddingHorizontal: item.paddingHorizontal, paddingTop: item.paddingTop, paddingBottom: item.paddingBottom, paddingLeft: item.paddingLeft, paddingRight: item.paddingRight}}
+                  // onPress={() => this._toggleModal(item.id, 'cargo')}
+                  >
+                  <Icon name='plus-circle' type='material-community' size={30} color='#34588f' style={autoStyles.Center}/>
+                </TouchableOpacity>
+              ))
+              }              
             </ImageBackground>
             </View>
             <View style={{flex: 0.245, marginLeft: 300}}>
@@ -66,7 +77,7 @@ class Auto extends React.Component {
             <Text style={[{fontWeight: 'bold'}, autoStyles.Font]}>Event Feed</Text>
             </ScrollView>
             <View style={{flex: 0.1, marginTop: 10, marginBottom: 50}}>
-            <Text style={autoStyles.Font}>Lower: {this.state.data.lower}</Text>
+            <Text style={autoStyles.Font}>Lower: {this.state.data.lower}{typeof(pos1)}</Text>
             <Text style={autoStyles.Font}>Outer: {this.state.data.outer}</Text>
               <Text style={autoStyles.Font}>Inner: {this.state.data.inner}</Text>
               </View>

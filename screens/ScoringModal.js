@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 class ScoringModal extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { data: {}, isModalVisible: false, control: false }
+        this.state = { data: {}, isModalVisible: false, control: false, lowerclicks: 0, outerclicks: 0, innerclicks: 0 }
     };
     render() {
         return (
@@ -28,44 +28,44 @@ class ScoringModal extends React.Component {
                         <View style={[autoStyles.Left, { marginBottom: 10 }]}>
                             <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', marginLeft: 20, marginBottom: 50, marginTop: -200 }}>
                                 <View style={{ width: 390, height: 50, marginBottom: 10 }}>
-                                    <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]} >
+                                    <View style={[autoStyles.ScoreButton, { width: '100%' }]} >
                                         <View style={[autoStyles.Center]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Lower</Text>
                                         </View>
-                                    </TouchableOpacity>
+                                    </View>
                                 </View>
                                 <View style={{ width: 390, height: 50, marginBottom: 10 }}>
-                                    <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]}>
+                                    <View style={[autoStyles.ScoreButton, { width: '100%' }]}>
                                         <View style={[autoStyles.Center]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Outer</Text>
                                         </View>
-                                    </TouchableOpacity>
+                                    </View>
                                 </View>
                                 <View style={{ width: 390, height: 50, marginBottom: 10 }}>
-                                    <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]}>
+                                    <View style={[autoStyles.ScoreButton, { width: '100%' }]}>
                                         <View style={[autoStyles.Center]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Inner</Text>
                                         </View>
-                                    </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
                             <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', marginBottom: 50, marginTop: -295, marginLeft: 450 }}>
                                 <View style={{ width: 50, height: 50, marginBottom: 10 }}>
-                                    <TouchableOpacity style={[autoStyles.AddStackButton, { width: '100%' }]} onPress={() => {console.log(this._addLower(1));}}>
+                                    <TouchableOpacity style={[autoStyles.AddStackButton, { width: '100%' }]} onPress={() => {this._addLower(1)}}>
                                         <View style={[autoStyles.Center]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>+</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={{ width: 50, height: 50, marginBottom: 10 }}>
-                                    <TouchableOpacity style={[autoStyles.AddStackButton, { width: '100%' }]}>
+                                    <TouchableOpacity style={[autoStyles.AddStackButton, { width: '100%' }]} onPress={() => {this._addOuter(1)}}>
                                         <View style={[autoStyles.Center]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>+</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={{ width: 50, height: 50, marginBottom: 10 }}>
-                                    <TouchableOpacity style={[autoStyles.AddStackButton, { width: '100%' }]}>
+                                    <TouchableOpacity style={[autoStyles.AddStackButton, { width: '100%' }]} onPress={() => {this._addInner(1)}}>
                                         <View style={[autoStyles.Center]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>+</Text>
                                         </View>
@@ -74,21 +74,21 @@ class ScoringModal extends React.Component {
                             </View>
                             <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', marginBottom: 50, marginTop: -295, marginLeft: 525 }}>
                                 <View style={{ width: 50, height: 50, marginBottom: 10 }}>
-                                    <TouchableOpacity style={[autoStyles.SubtractStackButton, { width: '100%' }]} >
+                                    <TouchableOpacity style={[autoStyles.SubtractStackButton, { width: '100%' }]} onPress={() => {this._addLower(-1)}} >
                                         <View style={[autoStyles.Center]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>-</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={{ width: 50, height: 50, marginBottom: 10 }}>
-                                    <TouchableOpacity style={[autoStyles.SubtractStackButton, { width: '100%' }]}>
+                                    <TouchableOpacity style={[autoStyles.SubtractStackButton, { width: '100%' }]} onPress={() => {this._addOuter(-1)}} > 
                                         <View style={[autoStyles.Center]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>-</Text>
                                         </View>
                                     </TouchableOpacity>
                                 </View>
                                 <View style={{ width: 50, height: 50, marginBottom: 10 }}>
-                                    <TouchableOpacity style={[autoStyles.SubtractStackButton, { width: '100%' }]}>
+                                    <TouchableOpacity style={[autoStyles.SubtractStackButton, { width: '100%' }]} onPress={() => {this._addInner(-1)}} >
                                         <View style={[autoStyles.Center]}>
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>-</Text>
                                         </View>
@@ -97,25 +97,25 @@ class ScoringModal extends React.Component {
                             </View>
                             <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between', marginBottom: 50, marginTop: -295, marginLeft: 600 }}>
                                 <View style={{ width: 200, height: 50, marginBottom: 10 }}>
-                                    <TouchableOpacity style={[autoStyles.ScoreView, { width: '100%' }]} >
+                                    <View style={[autoStyles.ScoreView, { width: '100%' }]} >
                                         <View style={[autoStyles.Center]}>
-                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Lower</Text>
+                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont], {color: '#000000'}}>{this.state.lowerclicks}</Text>
                                         </View>
-                                    </TouchableOpacity>
+                                    </View>
                                 </View>
                                 <View style={{ width: 200, height: 50, marginBottom: 10 }}>
-                                    <TouchableOpacity style={[autoStyles.ScoreView, { width: '100%' }]}>
+                                    <View style={[autoStyles.ScoreView, { width: '100%' }]}>
                                         <View style={[autoStyles.Center]}>
-                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Outer</Text>
+                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont], {color: '#000000'}}>{this.state.outerclicks}</Text>
                                         </View>
-                                    </TouchableOpacity>
+                                    </View>
                                 </View>
                                 <View style={{ width: 200, height: 50, marginBottom: 10 }}>
-                                    <TouchableOpacity style={[autoStyles.ScoreView, { width: '100%' }]}>
+                                    <View style={[autoStyles.ScoreView, { width: '100%' }]}>
                                         <View style={[autoStyles.Center]}>
-                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Inner</Text>
+                                            <Text style={[prematchStyles.Font, prematchStyles.ButtonFont], {color: '#000000'}}>{this.state.innerclicks}</Text>
                                         </View>
-                                    </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
                             <View style={{ flex: 0.62, flexDirection: 'row', marginBottom: 30 }}>
@@ -189,11 +189,19 @@ class ScoringModal extends React.Component {
     _openControlPanel() {
         this.setState({ control: true })
     }
-    _addLower(n) { 
-        return (x) => {
-            return x + n;   
-        };
+    _addLower(n) {
+        let newclicks =  Math.max(0, this.state.lowerclicks + n);
+        this.setState({ lowerclicks: newclicks });
+        // console.log(this.state.lowerclicks);
     };
+    _addOuter(n) {
+        let newclicks = Math.max(0, this.state.outerclicks + n);
+        this.setState({ outerclicks: newclicks });
+    }
+    _addInner(n) {
+        let newclicks = Math.max(0, this.state.innerclicks + n);
+        this.setState({ innerclicks: newclicks })
+    }
 }
 autoStyles = StyleSheet.create({
     MainContainer: {
