@@ -5,6 +5,7 @@ import Modal from 'react-native-modal';
 import fieldImages from '../index';
 
 let positions = ["1", "2" , "3", "5", "6"];
+let power_port = require('../assets/button_settings/powerPort.json');
 
 class Blink extends React.Component {
   constructor(props) {
@@ -31,10 +32,37 @@ class Blink extends React.Component {
 }
 
 class Auto extends React.Component {
-    render () {
+  constructor(props) {
+    super(props);
+    this.state = {data: {}, isPowerCellModalVisible: false, isControlPanellVisible: false, currentScoreLocation: ''}
+  }
 
+  componentDidMount() {
+    var time = new Date(); // initial time used as reference point for other timestamps
+    let data = this.props.navigation.getParam('data')
+    data.autoEvents = []
+    data.lower = 0;
+    data.outer = 0;
+    data.inner = 0;
+    data.rotation = false;
+    data.position = false;
+    this.setState({data: data, initialTime: time})
+  }
+  
+  render () {
+        const alliance = this.state.data.alliance;
+        const fieldOrientation = this.props.navigation.getParam("fieldOrientation");
+        const powerPort = power_port[`${alliance}-${fieldOrientation}`];
         return (
-          <Text>hello</Text>
+          <View style={{flex: 1, backgroundColor: '#eaeaea'}}>
+             <View style={{flex: 0.874}}>
+                <View style={autoStyles.MainContainer}>
+                <ImageBackground style={{flex: 1, resizeMode: 'contain', aspectRatio: 1.33}} source={fieldImages[fieldOrientation][alliance]}>
+                </ImageBackground>
+                </View>
+             </View>
+          </View>
+
         )
     }
     

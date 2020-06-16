@@ -4,6 +4,7 @@ import matchlist from '../screens/matchlist'
 import prematch from '../screens/prematch'
 import auto from '../screens/auto'
 import scoringmodal from '../screens/ScoringModal'
+import Auto from '../screens/auto'
 
 const screens = {
     MatchListScreen: {
@@ -37,7 +38,7 @@ const screens = {
         }
     },
     AutoScreen: {
-        screen: scoringmodal,
+        screen: Auto,
 
         navigationOptions: {
             title: 'Auto',
