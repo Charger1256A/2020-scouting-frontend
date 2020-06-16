@@ -15,13 +15,13 @@ const fieldImages = {
         red: require('./assets/field_drawings/red-field-2.png'),
 
     },
-    blue: {
-        1: require('./assets/field_drawings/full-field-2.png'),
-        2: require('./assets/field_drawings/full-field-1.png'),
+    3: {
+        blue: require('./assets/field_drawings/blue-game-1.png'),
+        red: require('./assets/field_drawings/red-game-1.png'),
     },
-    red: {
-        1: require('./assets/field_drawings/full-field-1.png'),
-        2: require('./assets/field_drawings/full-field-2.png'),
+    4: {
+        blue: require('./assets/field_drawings/blue-game-2.png'),
+        red: require('./assets/field_drawings/red-game-2.png'),
     }
 
 };
