@@ -34,7 +34,7 @@ class Blink extends React.Component {
 class Auto extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: {}, isPowerCellModalVisible: false, isControlPanellVisible: false, currentScoreLocation: '', lowerclicks: 0, outerclicks: 0, innerclicks: 0 }
+    this.state = { data: {}, isPowerCellModalVisible: false, isControlPanellVisible: false, lowerclicks: 0, outerclicks: 0, innerclicks: 0 }
   }
 
   componentDidMount() {
@@ -215,41 +215,6 @@ class Auto extends React.Component {
             </View>
           </View>
         </Modal>
-
-        <Modal animationInTiming={50} animationIn='fadeIn' animationOutTiming={50} animationOut='fadeOut' style={{ alignItems: 'center' }} isVisible={this.state.control}>
-          <View style={autoStyles.ModalContent}>
-            <View style={[autoStyles.Center, { margin: 10 }]}>
-              <View style={{ flex: 0.2 }}>
-                <Text style={[autoStyles.Font, { textAlign: 'center' }]}>Control Panel</Text>
-              </View>
-              <View style={{ flex: 0.62, flexDirection: 'row', marginBottom: 50, marginHorizontal: 40 }}>
-                <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
-                  <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]}>
-                    <View style={[autoStyles.Center, { marginBottom: 20 }]}>
-                      <Image style={{ flex: 1, resizeMode: 'contain', marginTop: 25 }} source={require('../assets/game_pieces/rotation-control.png')} />
-                      <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Rotation Control</Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-                <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
-                  <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]}>
-                    <View style={[autoStyles.Center, { marginBottom: 20 }]}>
-                      <Image style={{ flex: 1, resizeMode: 'contain', marginTop: 25 }} source={require('../assets/game_pieces/position-control.png')} />
-                      <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Position Control</Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View style={{ flex: 0.18, width: '80%' }}>
-                <TouchableOpacity style={autoStyles.CancelButton} onPress={() => this._closemodal()}>
-                  <View style={autoStyles.Center}>
-                    <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Cancel</Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-        </Modal>
       </View>
 
     );
@@ -280,6 +245,14 @@ class Auto extends React.Component {
     if (newclicks < 6){
       this.setState({ innerclicks: newclicks })
     }
+  }
+  
+  _updateScore() {
+    let data = this.state.data
+    var time = new Date() - new Date(this.state.initialTime); 
+    var lower = this.state.lowerclicks;
+    var outer = this.state.outerclicks;
+    var innner = this.state.lowerclicks;
   }
 }
 
