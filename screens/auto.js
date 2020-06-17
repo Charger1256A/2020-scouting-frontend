@@ -34,7 +34,7 @@ class Blink extends React.Component {
 class Auto extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: {}, isPowerCellModalVisible: false, isControlPanellVisible: false, currentScoreLocation: '' }
+    this.state = { data: {}, isPowerCellModalVisible: false, isControlPanellVisible: false, currentScoreLocation: '', lowerclicks: 0, outerclicks: 0, innerclicks: 0 }
   }
 
   componentDidMount() {
@@ -261,54 +261,104 @@ class Auto extends React.Component {
   _closemodal() {
     this.setState({ isModalVisible: false })
   }
+  _addLower(n) {
+    let newclicks = Math.max(0, this.state.lowerclicks + n);
+    this.setState({ lowerclicks: newclicks });
+    // console.log(this.state.lowerclicks);
+  };
+  _addOuter(n) {
+    let newclicks = Math.max(0, this.state.outerclicks + n);
+    this.setState({ outerclicks: newclicks });
+  }
+  _addInner(n) {
+    let newclicks = Math.max(0, this.state.innerclicks + n);
+    this.setState({ innerclicks: newclicks })
+  }
 }
 
 autoStyles = StyleSheet.create({
   MainContainer: {
-    flex: 1,
-    backgroundColor: '#eaeaea',
-    paddingTop: 30,
-    paddingHorizontal: 20,
-    marginBottom: 30,
-    flexDirection: 'row',
+      flex: 1,
+      backgroundColor: '#eaeaea',
+      paddingTop: 30,
+      paddingHorizontal: 20,
+      marginBottom: 30,
+      flexDirection: 'row',
   },
   Font: {
-    fontFamily: 'Helvetica-Light',
-    fontSize: 25
+      fontFamily: 'Helvetica-Light',
+      fontSize: 25
   },
   Center: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+  },
+  Left: {
+      flex: 1,
+      alignItems: 'flex-start',
+      justifyContent: 'flex-start'
+  },
+  Right: {
+      flex: 1,
+      alignItems: 'flex-end',
+      justifyContent: 'flex-end'
   },
   ModalContent: {
-    flex: 0.9,
-    width: 900,
-    backgroundColor: 'white',
-    borderRadius: 15,
-    padding: 20
+      flex: 0.9,
+      width: 900,
+      backgroundColor: 'white',
+      borderRadius: 15,
+      padding: 20
   },
   CancelButton: {
-    flex: 1,
-    backgroundColor: '#f74c4c',
-    borderRadius: 7,
-    borderBottomWidth: 5,
-    borderColor: '#d63e3e'
+      flex: 1,
+      backgroundColor: '#f74c4c',
+      borderRadius: 15,
+      borderBottomWidth: 5,
+      borderColor: '#d63e3e'
+  },
+  SaveButton: {
+      flex: 1,
+      backgroundColor: '#2E8B57',
+      borderRadius: 15,
+      borderBottomWidth: 5,
+      borderColor: '#006400'
   },
   ScoreButton: {
-    flex: 1,
-    backgroundColor: '#24a2b6',
-    borderRadius: 15,
-    borderBottomWidth: 5,
-    borderColor: '#13616d'
+      flex: 1,
+      backgroundColor: '#24a2b6',
+      borderRadius: 15,
+      borderBottomWidth: 5,
+      borderColor: '#13616d'
   },
+  AddStackButton: {
+      flex: 1,
+      backgroundColor: '#32CD32',
+      borderRadius: 15,
+      borderBottomWidth: 5,
+      borderColor: '#13616d'
+  }, 
+  SubtractStackButton: {
+      flex: 1,
+      backgroundColor: '#d63e3e',
+      borderRadius: 15,
+      borderBottomWidth: 5,
+      borderColor: '#13616d'
+  }, 
   UndoButton: {
-    flex: 1,
-    backgroundColor: '#ffae19',
-    borderRadius: 7,
-    borderBottomWidth: 5,
-    borderColor: '#c98302'
+      flex: 1,
+      backgroundColor: '#ffae19',
+      borderRadius: 7,
+      borderBottomWidth: 5,
+      borderColor: '#c98302'
+  },
+  ScoreView: {
+      flex: 1,
+      backgroundColor: '#fff',
+      borderRadius: 15,
+      borderBottomWidth: 5,
+      borderColor: '#13616d'
   }
 })
-
 export default Auto;
