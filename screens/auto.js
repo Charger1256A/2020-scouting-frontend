@@ -262,17 +262,24 @@ class Auto extends React.Component {
     this.setState({ isModalVisible: false })
   }
   _addLower(n) {
-    let newclicks = Math.max(0, this.state.lowerclicks + n);
-    this.setState({ lowerclicks: newclicks });
+      let newclicks = Math.max(0, this.state.lowerclicks + n);
+      if (newclicks < 6){
+        this.setState({ lowerclicks: newclicks });
+      }
+      
     // console.log(this.state.lowerclicks);
   };
   _addOuter(n) {
     let newclicks = Math.max(0, this.state.outerclicks + n);
-    this.setState({ outerclicks: newclicks });
-  }
+    if (newclicks < 6){
+      this.setState({ outerclicks: newclicks });
+    }
+}
   _addInner(n) {
     let newclicks = Math.max(0, this.state.innerclicks + n);
-    this.setState({ innerclicks: newclicks })
+    if (newclicks < 6){
+      this.setState({ innerclicks: newclicks })
+    }
   }
 }
 
