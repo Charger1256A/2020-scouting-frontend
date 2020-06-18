@@ -75,6 +75,9 @@ class Auto extends React.Component {
             <View style={{ flex: 0.245, marginLeft: 300 }}>
               <ScrollView style={{ flex: 0.88 }}>
                 <Text style={[{ fontWeight: 'bold' }, autoStyles.Font]}>Event Feed</Text>
+                <View style={{flex: 1, marginTop: 10}}>
+                  <Text style={[autoStyles.Font, {fontSize: 15}]}><Text style={{fontWeight: 'bold'}}>Item Scored </Text>{JSON.stringify(this.state.data.autoEvents)}</Text>
+                </View>
               </ScrollView>
               <View style={{ flex: 0.1, marginTop: 10, marginBottom: 50 }}>
               <Text style={autoStyles.Font}>Lower: {this.state.data.lower}</Text>
