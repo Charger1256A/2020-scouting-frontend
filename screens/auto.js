@@ -75,12 +75,12 @@ class Auto extends React.Component {
             <View style={{ flex: 0.245, marginLeft: 300 }}>
               <ScrollView style={{ flex: 0.88 }}>
                 <Text style={[{ fontWeight: 'bold' }, autoStyles.Font]}>Event Feed</Text>
-                <View style={{flex: 1, marginTop: 10}}>
-                  <Text style={[autoStyles.Font, {fontSize: 15}]}><Text style={{fontWeight: 'bold'}}>Item Scored </Text>{JSON.stringify(this.state.data.autoEvents)}</Text>
+                <View style={{ flex: 1, marginTop: 10 }}>
+                  <Text style={[autoStyles.Font, { fontSize: 15 }]}><Text style={{ fontWeight: 'bold' }}>Item Scored </Text>{JSON.stringify(this.state.data.autoEvents)}</Text>
                 </View>
               </ScrollView>
               <View style={{ flex: 0.1, marginTop: 10, marginBottom: 50 }}>
-              <Text style={autoStyles.Font}>Lower: {this.state.data.lower}</Text>
+                <Text style={autoStyles.Font}>Lower: {this.state.data.lower}</Text>
                 <Text style={autoStyles.Font}>Outer: {this.state.data.outer}</Text>
                 <Text style={autoStyles.Font}>Inner: {this.state.data.inner}</Text>
               </View>
@@ -88,7 +88,7 @@ class Auto extends React.Component {
           </View>
         </View>
         <View style={{ flex: 0.126, paddingHorizontal: 40, flexDirection: 'row' }}>
-          <TouchableOpacity style={[autoStyles.UndoButton, { marginHorizontal: 30, marginBottom: 25 }]}>
+          <TouchableOpacity style={[autoStyles.UndoButton, { marginHorizontal: 30, marginBottom: 25 }]} onPress={this._undo()}>
             <View style={autoStyles.Center}>
               <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Undo</Text>
             </View>
@@ -208,7 +208,7 @@ class Auto extends React.Component {
                   </TouchableOpacity>
                 </View>
                 <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
-                  <TouchableOpacity style={[autoStyles.SaveButton, { width: '100%' }]} onPress={() => {this._updateScore(); this._closemodal();}}>
+                  <TouchableOpacity style={[autoStyles.SaveButton, { width: '100%' }]} onPress={() => { this._updateScore(); this._closemodal(); }}>
                     <View style={[autoStyles.Center]}>
                       <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Save</Text>
                     </View>
@@ -228,126 +228,139 @@ class Auto extends React.Component {
   }
   _closemodal() {
     this.setState({ isModalVisible: false })
+    this.setState({ lowerclicks: 0, outerclicks: 0, innerclicks: 0 })
   }
   _addLower(n) {
-      let newclicks = Math.max(0, this.state.lowerclicks + n);
-      if (newclicks < 6){
-        this.setState({ lowerclicks: newclicks });
-      }
-      
+    let newclicks = Math.max(0, this.state.lowerclicks + n);
+    if (newclicks < 6) {
+      this.setState({ lowerclicks: newclicks });
+    }
+
     // console.log(this.state.lowerclicks);
   };
   _addOuter(n) {
     let newclicks = Math.max(0, this.state.outerclicks + n);
-    if (newclicks < 6){
+    if (newclicks < 6) {
       this.setState({ outerclicks: newclicks });
     }
-}
+  }
   _addInner(n) {
     let newclicks = Math.max(0, this.state.innerclicks + n);
-    if (newclicks < 6){
+    if (newclicks < 6) {
       this.setState({ innerclicks: newclicks })
     }
   }
-  
+
   _updateScore() {
     let data = this.state.data;
     var time = new Date() - new Date(this.state.initialTime);
     time /= 1000
     var lower = this.state.lowerclicks;
-    var outer = this.state. outerclicks;
+    var outer = this.state.outerclicks;
     var inner = this.state.innerclicks;
-    var event = {Lowergoal: lower, Outergoal: outer, Innergoal: inner};
-    data.autoEvents.push({"time": time.toString(), "event": event});
-    this.setState({data: data});
+    var event = { Lowergoal: lower, Outergoal: outer, Innergoal: inner };
+    data.autoEvents.push({ "time": time.toString(), "event": event });
+    data.lower += lower;
+    data.outer += outer;
+    data.inner += inner;
+    this.setState({ data: data });
     console.log(JSON.stringify(data.autoEvents));
     console.log(new Date())
+  }
+
+  _undo() {
+    let data = this.state.data;
+    let last = data.autoEvents.pop();
+    if (last != null) {
+      last.event.success == 1 ? data[`auto${this._titleCase(last.event.itemScored)}`] -= 1 : "";
+    }
+    this.setState({ data: data });
   }
 }
 
 autoStyles = StyleSheet.create({
   MainContainer: {
-      flex: 1,
-      backgroundColor: '#eaeaea',
-      paddingTop: 30,
-      paddingHorizontal: 20,
-      marginBottom: 30,
-      flexDirection: 'row',
+    flex: 1,
+    backgroundColor: '#eaeaea',
+    paddingTop: 30,
+    paddingHorizontal: 20,
+    marginBottom: 30,
+    flexDirection: 'row',
   },
   Font: {
-      fontFamily: 'Helvetica-Light',
-      fontSize: 25
+    fontFamily: 'Helvetica-Light',
+    fontSize: 25
   },
   Center: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   Left: {
-      flex: 1,
-      alignItems: 'flex-start',
-      justifyContent: 'flex-start'
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start'
   },
   Right: {
-      flex: 1,
-      alignItems: 'flex-end',
-      justifyContent: 'flex-end'
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end'
   },
   ModalContent: {
-      flex: 0.9,
-      width: 900,
-      backgroundColor: 'white',
-      borderRadius: 15,
-      padding: 20
+    flex: 0.9,
+    width: 900,
+    backgroundColor: 'white',
+    borderRadius: 15,
+    padding: 20
   },
   CancelButton: {
-      flex: 1,
-      backgroundColor: '#f74c4c',
-      borderRadius: 15,
-      borderBottomWidth: 5,
-      borderColor: '#d63e3e'
+    flex: 1,
+    backgroundColor: '#f74c4c',
+    borderRadius: 15,
+    borderBottomWidth: 5,
+    borderColor: '#d63e3e'
   },
   SaveButton: {
-      flex: 1,
-      backgroundColor: '#2E8B57',
-      borderRadius: 15,
-      borderBottomWidth: 5,
-      borderColor: '#006400'
+    flex: 1,
+    backgroundColor: '#2E8B57',
+    borderRadius: 15,
+    borderBottomWidth: 5,
+    borderColor: '#006400'
   },
   ScoreButton: {
-      flex: 1,
-      backgroundColor: '#24a2b6',
-      borderRadius: 15,
-      borderBottomWidth: 5,
-      borderColor: '#13616d'
+    flex: 1,
+    backgroundColor: '#24a2b6',
+    borderRadius: 15,
+    borderBottomWidth: 5,
+    borderColor: '#13616d'
   },
   AddStackButton: {
-      flex: 1,
-      backgroundColor: '#32CD32',
-      borderRadius: 15,
-      borderBottomWidth: 5,
-      borderColor: '#13616d'
-  }, 
+    flex: 1,
+    backgroundColor: '#32CD32',
+    borderRadius: 15,
+    borderBottomWidth: 5,
+    borderColor: '#13616d'
+  },
   SubtractStackButton: {
-      flex: 1,
-      backgroundColor: '#d63e3e',
-      borderRadius: 15,
-      borderBottomWidth: 5,
-      borderColor: '#13616d'
-  }, 
+    flex: 1,
+    backgroundColor: '#d63e3e',
+    borderRadius: 15,
+    borderBottomWidth: 5,
+    borderColor: '#13616d'
+  },
   UndoButton: {
-      flex: 1,
-      backgroundColor: '#ffae19',
-      borderRadius: 7,
-      borderBottomWidth: 5,
-      borderColor: '#c98302'
+    flex: 1,
+    backgroundColor: '#ffae19',
+    borderRadius: 7,
+    borderBottomWidth: 5,
+    borderColor: '#c98302'
   },
   ScoreView: {
-      flex: 1,
-      backgroundColor: '#fff',
-      borderRadius: 15,
-      borderBottomWidth: 5,
-      borderColor: '#13616d'
+    flex: 1,
+    backgroundColor: '#fff',
+    borderRadius: 15,
+    borderBottomWidth: 5,
+    borderColor: '#13616d'
   }
 })
 export default Auto;
