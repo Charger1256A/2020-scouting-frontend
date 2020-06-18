@@ -253,6 +253,7 @@ class Auto extends React.Component {
   _updateScore() {
     let data = this.state.data;
     var time = new Date() - new Date(this.state.initialTime);
+    time /= 1000
     var lower = this.state.lowerclicks;
     var outer = this.state. outerclicks;
     var inner = this.state.innerclicks;
@@ -260,6 +261,7 @@ class Auto extends React.Component {
     data.autoEvents.push({"time": time.toString(), "event": event});
     this.setState({data: data});
     console.log(JSON.stringify(data.autoEvents));
+    console.log(new Date())
   }
 }
 
