@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image, ScrollView, alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image, ScrollView, Alert } from 'react-native';
 import { Icon } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import fieldImages from '../index';
@@ -77,7 +77,7 @@ class Auto extends React.Component {
                 <Text style={[{ fontWeight: 'bold' }, autoStyles.Font]}>Event Feed</Text>
               </ScrollView>
               <View style={{ flex: 0.1, marginTop: 10, marginBottom: 50 }}>
-                <Text style={autoStyles.Font}>Lower: {this.state.data.lower}</Text>
+              <Text style={autoStyles.Font}>Lower: {this.state.data.lower}</Text>
                 <Text style={autoStyles.Font}>Outer: {this.state.data.outer}</Text>
                 <Text style={autoStyles.Font}>Inner: {this.state.data.inner}</Text>
               </View>
@@ -205,7 +205,7 @@ class Auto extends React.Component {
                   </TouchableOpacity>
                 </View>
                 <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
-                  <TouchableOpacity style={[autoStyles.SaveButton, { width: '100%' }]} onPress={() => this._closemodal()}>
+                  <TouchableOpacity style={[autoStyles.SaveButton, { width: '100%' }]} onPress={() => {this._updateScore(); this._closemodal();}}>
                     <View style={[autoStyles.Center]}>
                       <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Save</Text>
                     </View>
@@ -219,10 +219,10 @@ class Auto extends React.Component {
 
     );
   }
+
   _openModal() {
     this.setState({ isModalVisible: true })
   }
-
   _closemodal() {
     this.setState({ isModalVisible: false })
   }
@@ -248,11 +248,15 @@ class Auto extends React.Component {
   }
   
   _updateScore() {
-    let data = this.state.data
-    var time = new Date() - new Date(this.state.initialTime); 
+    let data = this.state.data;
+    var time = new Date() - new Date(this.state.initialTime);
     var lower = this.state.lowerclicks;
-    var outer = this.state.outerclicks;
-    var innner = this.state.lowerclicks;
+    var outer = this.state. outerclicks;
+    var inner = this.state.innerclicks;
+    var event = {Lowergoal: lower, Outergoal: outer, Innergoal: inner};
+    data.autoEvents.push({"time": time.toString(), "event": event});
+    this.setState({data: data});
+    console.log(JSON.stringify(data.autoEvents));
   }
 }
 
