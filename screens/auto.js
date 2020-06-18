@@ -255,7 +255,7 @@ class Auto extends React.Component {
     var time = new Date() - new Date(this.state.initialTime);
     time /= 1000
     var lower = this.state.lowerclicks;
-    var outer = this.state. outerclicks;
+    var outer = this.state.outerclicks;
     var inner = this.state.innerclicks;
     var event = {Lowergoal: lower, Outergoal: outer, Innergoal: inner};
     data.autoEvents.push({"time": time.toString(), "event": event});
