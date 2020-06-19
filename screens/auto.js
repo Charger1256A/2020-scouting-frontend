@@ -88,8 +88,7 @@ class Auto extends React.Component {
           </View>
         </View>
         <View style={{ flex: 0.126, paddingHorizontal: 40, flexDirection: 'row' }}>
-          {/* <TouchableOpacity style={[autoStyles.UndoButton, { marginHorizontal: 30, marginBottom: 25 }]} onPress={this._undo()}> */}
-          <TouchableOpacity style={[autoStyles.UndoButton, { marginHorizontal: 30, marginBottom: 25 }]}>
+          <TouchableOpacity style={[autoStyles.UndoButton, { marginHorizontal: 30, marginBottom: 25 }]} onPress={() => { this._undo() }}>
             <View style={autoStyles.Center}>
               <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Undo</Text>
             </View>
@@ -270,13 +269,13 @@ class Auto extends React.Component {
   }
 
   _undo() {
-    let data = this.state.data;
-    // let last_lower = this.state.data.lower;
-    // let last_outer = this.state.data.outer;
-    // let last_inner = this.state.data.inner;
-    
-    this.setState({ data: data });
-  }
+  let data = this.state.data;
+  let last = data.autoEvents.pop();
+  if (last != null) {
+    last.event.success == 1 ? data[`auto${this._titleCase(last.event.itemScored)}`] -= 1 : "";
+    }
+  this.setState({data: data});
+    }
 }
 
 autoStyles = StyleSheet.create({
@@ -364,4 +363,5 @@ autoStyles = StyleSheet.create({
     borderColor: '#13616d'
   }
 })
+
 export default Auto;
