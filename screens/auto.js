@@ -41,9 +41,10 @@ class Auto extends React.Component {
     var time = new Date(); // initial time used as reference point for other timestamps
     let data = this.props.navigation.getParam('data')
     data.autoEvents = []
-    data.lower = 0;
-    data.outer = 0;
-    data.inner = 0;
+    data.autolower = 0;
+    data.autoouter = 0;
+    data.autoinner = 0;
+    powercells = [];
     // data.rotation = false;
     // data.position = false;
     this.setState({ data: data, initialTime: time })
@@ -80,9 +81,9 @@ class Auto extends React.Component {
                 </View>
               </ScrollView>
               <View style={{ flex: 0.1, marginTop: 10, marginBottom: 50 }}>
-                <Text style={autoStyles.Font}>Lower: {this.state.data.lower}</Text>
-                <Text style={autoStyles.Font}>Outer: {this.state.data.outer}</Text>
-                <Text style={autoStyles.Font}>Inner: {this.state.data.inner}</Text>
+                <Text style={autoStyles.Font}>Lower: {this.state.data.autolower}</Text>
+                <Text style={autoStyles.Font}>Outer: {this.state.data.autoouter}</Text>
+                <Text style={autoStyles.Font}>Inner: {this.state.data.autoinner}</Text>
               </View>
             </View>
           </View>
@@ -234,6 +235,7 @@ class Auto extends React.Component {
     let newclicks = Math.max(0, this.state.lowerclicks + n);
     if (newclicks < 6) {
       this.setState({ lowerclicks: newclicks });
+      this.setState({ lowerclickscurrent: newclicks });
     }
 
     // console.log(this.state.lowerclicks);
@@ -242,12 +244,14 @@ class Auto extends React.Component {
     let newclicks = Math.max(0, this.state.outerclicks + n);
     if (newclicks < 6) {
       this.setState({ outerclicks: newclicks });
+      this.setState({ outerclickscurrent: newclicks });
     }
   }
   _addInner(n) {
     let newclicks = Math.max(0, this.state.innerclicks + n);
     if (newclicks < 6) {
-      this.setState({ innerclicks: newclicks })
+      this.setState({ innerclicks: newclicks });
+      this.setState({ innerclickscurrent: newclicks });
     }
   }
 
@@ -256,13 +260,16 @@ class Auto extends React.Component {
     var time = new Date() - new Date(this.state.initialTime);
     time /= 1000
     var lower = this.state.lowerclicks;
+    powercells.push(lower);
     var outer = this.state.outerclicks;
+    powercells.push(outer);
     var inner = this.state.innerclicks;
+    powercells.push(inner);
     var event = { Lowergoal: lower, Outergoal: outer, Innergoal: inner };
     data.autoEvents.push({ "time": time.toString(), "event": event });
-    data.lower += lower;
-    data.outer += outer;
-    data.inner += inner;
+    data.autolower += lower;
+    data.autoouter += outer;
+    data.autoinner += inner;
     this.setState({ data: data });
     console.log(JSON.stringify(data.autoEvents));
     console.log(new Date())
@@ -273,6 +280,28 @@ class Auto extends React.Component {
   let last = data.autoEvents.pop();
   if (last != null) {
     last.event.success == 1 ? data[`auto${this._titleCase(last.event.itemScored)}`] -= 1 : "";
+    var i;
+    for (i=0; i < powercells.length; i++) {
+      if (i == powercells.length - 3 ) {
+        let lastlower = powercells[i];
+        data.autolower -= lastlower;
+      }
+      if (i == powercells.length - 2 ) {
+        let lastouter = powercells[i];
+        data.autoouter -= lastouter;
+      }
+      if (i == powercells.length - 1) {
+        let lastinner = powercells[i]
+        data.autoinner -= lastinner;
+      }
+    }
+    var n = 0;
+    while (n < 3) {
+      n += 1
+      powercells.splice(-1, 1);  
+    }
+    
+    this.setState({ data: data })
     }
   this.setState({data: data});
     }
