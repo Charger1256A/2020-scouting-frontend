@@ -5,6 +5,7 @@ import prematch from '../screens/prematch'
 import auto from '../screens/auto'
 import scoringmodal from '../screens/ScoringModal'
 import Auto from '../screens/auto'
+import Teleop from '../screens/teleop'
 
 const screens = {
     MatchListScreen: {
@@ -42,6 +43,22 @@ const screens = {
 
         navigationOptions: {
             title: 'Auto',
+            headerTintColor: 'white',
+
+            headerStyle: {
+                backgroundColor: '#3486eb'
+            },
+
+            headerTitleStyle: {
+                color: 'white'
+              }
+        }
+    },
+    TeleopScreen: {
+        screen: Teleop,
+
+        navigationOptions: {
+            title: 'Teleop',
             headerTintColor: 'white',
 
             headerStyle: {

@@ -94,7 +94,7 @@ class Auto extends React.Component {
               <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Undo</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={[prematchStyles.NextButton, { marginHorizontal: 30, marginBottom: 25 }]}>
+          <TouchableOpacity style={[prematchStyles.NextButton, { marginHorizontal: 30, marginBottom: 25 }]} onPress={() => { this.props.navigation.navigate('TeleopScreen', { data: this.state.data, fieldOrientation: fieldOrientation })}}>
             <View style={autoStyles.Center}>
               <Blink text='Continue to Teleop' />
             </View>
