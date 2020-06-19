@@ -88,7 +88,7 @@ class Auto extends React.Component {
           </View>
         </View>
         <View style={{ flex: 0.126, paddingHorizontal: 40, flexDirection: 'row' }}>
-          <TouchableOpacity style={[autoStyles.UndoButton, { marginHorizontal: 30, marginBottom: 25 }]} onPress={this._undo()}>
+          <TouchableOpacity style={[autoStyles.UndoButton, { marginHorizontal: 30, marginBottom: 25 }]} onPress={() => { this._undo() }}>
             <View style={autoStyles.Center}>
               <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Undo</Text>
             </View>
@@ -270,11 +270,16 @@ class Auto extends React.Component {
 
   _undo() {
     let data = this.state.data;
-    let last = data.autoEvents.pop();
-    if (last != null) {
-      last.event.success == 1 ? data[`auto${this._titleCase(last.event.itemScored)}`] -= 1 : "";
+    if (data.autoEvents.pop() != undefined) {
+      let data = this.state.data;
+      let last = data.autoEvents.pop();
+      if (last != null) {
+        last.event.success == 1 ? data[`auto${this._titleCase(last.event.itemScored)}`] -= 1 : "";
+      }
+      this.setState({ data: data });
+    } else {
+      alert("There is nothing to undo");
     }
-    this.setState({ data: data });
   }
 }
 
