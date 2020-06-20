@@ -34,7 +34,7 @@ class Blink extends React.Component {
 class Auto extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { data: {}, isPowerCellModalVisible: false, isControlPanellVisible: false, lowerclicks: 0, outerclicks: 0, innerclicks: 0 }
+    this.state = { data: {}, isPowerCellModalVisible: false, lowerclicks: 0, outerclicks: 0, innerclicks: 0 }
   }
 
   componentDidMount() {
@@ -48,6 +48,7 @@ class Auto extends React.Component {
     // data.rotation = false;
     // data.position = false;
     this.setState({ data: data, initialTime: time })
+    console.log(data)
   }
 
   render() {
@@ -94,7 +95,7 @@ class Auto extends React.Component {
               <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Undo</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={[prematchStyles.NextButton, { marginHorizontal: 30, marginBottom: 25 }]} onPress={() => { this.props.navigation.navigate('TeleopScreen', { data: this.state.data, fieldOrientation: fieldOrientation })}}>
+          <TouchableOpacity style={[prematchStyles.NextButton, { marginHorizontal: 30, marginBottom: 25 }]} onPress={() => { this.props.navigation.navigate('TeleopScreen', { data: this.state.data, fieldOrientation: fieldOrientation }) }}>
             <View style={autoStyles.Center}>
               <Blink text='Continue to Teleop' />
             </View>
@@ -276,35 +277,35 @@ class Auto extends React.Component {
   }
 
   _undo() {
-  let data = this.state.data;
-  let last = data.autoEvents.pop();
-  if (last != null) {
-    last.event.success == 1 ? data[`auto${this._titleCase(last.event.itemScored)}`] -= 1 : "";
-    var i;
-    for (i=0; i < powercells.length; i++) {
-      if (i == powercells.length - 3 ) {
-        let lastlower = powercells[i];
-        data.autolower -= lastlower;
+    let data = this.state.data;
+    let last = data.autoEvents.pop();
+    if (last != null) {
+      last.event.success == 1 ? data[`auto${this._titleCase(last.event.itemScored)}`] -= 1 : "";
+      var i;
+      for (i = 0; i < powercells.length; i++) {
+        if (i == powercells.length - 3) {
+          let lastlower = powercells[i];
+          data.autolower -= lastlower;
+        }
+        if (i == powercells.length - 2) {
+          let lastouter = powercells[i];
+          data.autoouter -= lastouter;
+        }
+        if (i == powercells.length - 1) {
+          let lastinner = powercells[i]
+          data.autoinner -= lastinner;
+        }
       }
-      if (i == powercells.length - 2 ) {
-        let lastouter = powercells[i];
-        data.autoouter -= lastouter;
+      var n = 0;
+      while (n < 3) {
+        n += 1
+        powercells.splice(-1, 1);
       }
-      if (i == powercells.length - 1) {
-        let lastinner = powercells[i]
-        data.autoinner -= lastinner;
-      }
+
+      this.setState({ data: data })
     }
-    var n = 0;
-    while (n < 3) {
-      n += 1
-      powercells.splice(-1, 1);  
-    }
-    
-    this.setState({ data: data })
-    }
-  this.setState({data: data});
-    }
+    this.setState({ data: data });
+  }
 }
 
 autoStyles = StyleSheet.create({
