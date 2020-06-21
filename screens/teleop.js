@@ -4,6 +4,8 @@ import { Icon } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import fieldImages from '../index';
 
+let postions = require('../assets/button_settings/teleoppositions.json');
+
 class Teleop extends React.Component {
     constructor(props) {
         super(props);
@@ -49,13 +51,21 @@ class Teleop extends React.Component {
     render() {
         const alliance = this.state.data.alliance;
         const fieldOrientation = this.props.navigation.getParam("fieldOrientation");
+        const pos = postions[fieldOrientation]
         return (
             <View style={{ flex: 1, backgroundColor: '#eaeaea' }}>
                 <View style={{ flex: 0.874 }}>
                     <View style={autoStyles.MainContainer}>
                         <View style={{ flex: 0.755, borderWidth: 4, borderColor: '#d4d4d4' }}>
-                            <ImageBackground style={{ flex: 1, resizeMode: 'contain', aspectRatio: 1.33 }} source={fieldImages[fieldOrientation][alliance]}>
-
+                            <ImageBackground style={{ flex: 1, resizeMode: 'contain', aspectRatio: 1.33 }} source={fieldImages[fieldOrientation][alliance]}>{
+                            pos.map((item, i) => (
+                                <TouchableOpacity 
+                                key={i}
+                                style={{ position: 'absolute', left: item.left, right: item.right, top: item.top, paddingHorizontal: item.paddingHorizontal, paddingTop: item.paddingTop, paddingBottom: item.paddingBottom, paddingLeft: item.paddingLeft, paddingRight: item.paddingRight }}>
+                                     <Icon name='plus-circle' type='material-community' size={30} color='#1cfc03' style={autoStyles.Center} />
+                                </TouchableOpacity>  
+                            ))
+                            }
                             </ImageBackground>
                         </View>
                         <View style={{ flex: 0.245, marginLeft: 15 }}>

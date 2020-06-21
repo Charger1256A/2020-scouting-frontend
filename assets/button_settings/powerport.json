@@ -1,10 +1,10 @@
 {
     "1": [
-        {"id": "LF", "right": 625, "top": 137, "paddingHorizontal": 25, "paddingTop": 15, "paddingBottom": 60, "paddingLeft": 45}
+        {"right": 625, "top": 137, "paddingHorizontal": 25, "paddingTop": 15, "paddingBottom": 60, "paddingLeft": 45}
        
     ],
     "2": [
-        {"id": "RF", "left": 623, "top": 350, "paddingHorizontal": 25, "paddingTop": 15, "paddingBottom": 60, "paddingRight": 45}
+        {"left": 623, "top": 350, "paddingHorizontal": 25, "paddingTop": 15, "paddingBottom": 60, "paddingRight": 45}
      
     ]
 }
