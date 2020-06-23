@@ -3,13 +3,14 @@ import { TouchableOpacity, View, Text, ImageBackground, Image, ScrollView, Alert
 import { Icon } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import fieldImages from '../index';
+import parseErrorStack from 'react-native/Libraries/Core/Devtools/parseErrorStack';
 
 let postions = require('../assets/button_settings/teleoppositions.json');
 
 class Teleop extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { data: {}, isControlPanellVisible: false, isPowerCellModalVisible: false, lower1: 0, outer1: 0, inner1: 0, lower2: 0, outer2: 0, inner2: 0, lower3: 0, outer3: 0, inner3: 0, lower4: 0, outer4: 0, inner4: 0, lower5: 0, outer5: 0, inner5: 0, lower6: 0, outer6: 0, inner6: 0, telelower: 0, teleouter: 0, teleinner: 0, lowerclicks: 0, outerclicks: 0, innerclicks: 0 }
+        this.state = { data: {}, isControlPanellVisible: false, isPowerCellModalVisible: false, lower1: 0, outer1: 0, inner1: 0, lower2: 0, outer2: 0, inner2: 0, lower3: 0, outer3: 0, inner3: 0, lower4: 0, outer4: 0, inner4: 0, lower5: 0, outer5: 0, inner5: 0, lower6: 0, outer6: 0, inner6: 0, telelower: 0, teleouter: 0, teleinner: 0, lowerclicks: 0, outerclicks: 0, innerclicks: 0, rotationControl: false, positionControl: false }
     }
 
     componentDidMount() {
@@ -45,10 +46,9 @@ class Teleop extends React.Component {
             outer: 0,
             inner: 0,
         }
-        data.autoEvents = []
-        data.autolower = 0;
-        data.autoouter = 0;
-        data.autoinner = 0;
+        data.teleEvents = []
+        data.rotatiocontrol = false;
+        data.positioncontrol = false;
         this.setState({ data: data, initialTime: time });
     }
 
@@ -77,7 +77,7 @@ class Teleop extends React.Component {
                             <ScrollView style={{ flex: 0.88 }}>
                                 <Text style={[{ fontWeight: 'bold' }, autoStyles.Font]}>Event Feed</Text>
                                 <View style={{ flex: 1, marginTop: 10 }}>
-                                    <Text style={[autoStyles.Font, { fontSize: 15 }]}><Text style={{ fontWeight: 'bold' }}>Item Scored </Text>{JSON.stringify(this.state.data.autoEvents)}</Text>
+                                    <Text style={[autoStyles.Font, { fontSize: 15 }]}><Text style={{ fontWeight: 'bold' }}>Item Scored </Text>{JSON.stringify(this.state.data.teleEvents)}</Text>
                                 </View>
                             </ScrollView>
                             <View style={{ flex: 0.1, marginTop: 10, marginBottom: 50 }}>
@@ -108,7 +108,7 @@ class Teleop extends React.Component {
                             </View>
                             <View style={{ flex: 0.62, flexDirection: 'row', marginBottom: 50, marginHorizontal: 40 }}>
                                 <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
-                                    <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]}>
+                                    <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]} onPress={() => {this._updateCPModal('rotation');}}>
                                         <View style={[autoStyles.Center, { marginBottom: 20 }]}>
                                             <Image style={{ flex: 1, resizeMode: 'contain', marginTop: 25 }} source={require('../assets/game_pieces/rotation-control.png')} />
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Rotation Control</Text>
@@ -116,7 +116,7 @@ class Teleop extends React.Component {
                                     </TouchableOpacity>
                                 </View>
                                 <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
-                                    <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]}>
+                                    <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]} onPress={() => {this._updateCPModal('position');}}>
                                         <View style={[autoStyles.Center, { marginBottom: 20 }]}>
                                             <Image style={{ flex: 1, resizeMode: 'contain', marginTop: 25 }} source={require('../assets/game_pieces/position-control.png')} />
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Position Control</Text>
@@ -306,13 +306,29 @@ class Teleop extends React.Component {
         var inner = this.state.innerclicks;
         powercells.push(inner);
         var event = { Lowergoal: lower, Outergoal: outer, Innergoal: inner };
-        data.autoEvents.push({ "time": time.toString(), "event": event });
+        data.teleEvents.push({ "time": time.toString(), "event": event });
         data.telelower += lower;
         data.teleouter += outer;
         data.teleouter += inner;
         this.setState({ data: data });
-        console.log(JSON.stringify(data.autoEvents));
+        console.log(JSON.stringify(data.teleEvents));
         console.log(new Date())
+    }
+    _updateCPModal(event) {
+        let data = this.state.data;
+        var time = new Date() - new Date(this.state.initialTime);
+        time /= 1000;
+        if (this.state.rotationControl == false && event == 'rotation'){
+            this.setState({ rotationControl: true});
+            data.teleEvents.push({ "rotation control": "complete" })
+            this.state.data.rotatiocontrol = true;
+        } else if (this.state.positionControl == false && this.state.rotationControl == true && event == 'position'){
+            this.setState({ positionControl: true });
+            data.teleEvents.push({ "position control": "complete" })
+            this.state.data.positioncontrol = true;
+        }
+        this._closeModal();
+       
     }
 }
 export default Teleop;
