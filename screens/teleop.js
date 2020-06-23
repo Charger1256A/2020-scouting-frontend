@@ -318,16 +318,44 @@ class Teleop extends React.Component {
         let data = this.state.data;
         var time = new Date() - new Date(this.state.initialTime);
         time /= 1000;
-        if (this.state.rotationControl == false && event == 'rotation'){
+        if (this.state.rotationControl == false && event == 'rotation') {
             this.setState({ rotationControl: true});
-            data.teleEvents.push({ "rotation control": "complete" })
+            data.teleEvents.push({ "time": time.toString(), "rotation control": "complete" })
             this.state.data.rotatiocontrol = true;
-        } else if (this.state.positionControl == false && this.state.rotationControl == true && event == 'position'){
-            this.setState({ positionControl: true });
-            data.teleEvents.push({ "position control": "complete" })
-            this.state.data.positioncontrol = true;
+            this._closeModal();
+        } else if (this.state.positionControl == false && this.state.rotationControl == false && event == 'position') {
+            Alert.alert(
+                'Control Panel',
+                'Rotation Control must be achieved before Position Control',
+                {cancelable: false},
+              );
         }
-        this._closeModal();
+        else if (this.state.positionControl == false && this.state.rotationControl == true && event == 'position') {
+            this.setState({ positionControl: true });
+            data.teleEvents.push({ "time": time.toString(), "position control": "complete" })
+            this.state.data.positioncontrol = true;
+            this._closeModal();
+        } else if (this.state.rotationControl == true && event == 'rotation') {
+            Alert.alert(
+                'Rotation Control',
+                'Rotation Control has already been achieved',
+                [
+                  {text: 'OK', onPress: () => this._closeModal()},
+                ],
+                {cancelable: false},
+              );
+        } else if (this.state.positionControl == true && event == 'position') {
+            Alert.alert(
+                'Position Control',
+                'Position Control has already been achieved',
+                [
+                  {text: 'OK', onPress: () => this._closeModal()},
+                ],
+                {cancelable: false},
+              );
+        }
+
+        // this._closeModal();
        
     }
 }
