@@ -6,6 +6,7 @@ import scoringmodal from '../screens/ScoringModal'
 import Auto from '../screens/auto'
 import Teleop from '../screens/teleop'
 import Postmatch from '../screens/postmatch'
+import QRcode from '../screens/QRCode'
 
 const screens = {
     MatchListScreen: {
@@ -75,6 +76,22 @@ const screens = {
 
         navigationOptions: {
             
+            headerTintColor: 'white',
+
+            headerStyle: {
+                backgroundColor: '#3486eb'
+            },
+
+            headerTitleStyle: {
+                color: 'white'
+              }
+        }
+    },
+    QRCodeScreen: {
+        screen: QRcode,
+
+        navigationOptions: {
+            headerBackTitle: 'Postmatch',
             headerTintColor: 'white',
 
             headerStyle: {

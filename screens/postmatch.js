@@ -161,7 +161,7 @@ class Postmatch extends React.Component {
       data.initiationLine = this.state.initiationLine ? 1 : 0;
       console.log(data);
       if (data.notes != '' && data.hangNotes != '') { // checks that notes have content
-        this.props.navigation.navigate('QRCode', {
+        this.props.navigation.navigate('QRCodeScreen', {
           data: this.state.data
         })
       } else {
