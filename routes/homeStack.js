@@ -2,10 +2,10 @@ import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation'
 import matchlist from '../screens/matchlist'
 import prematch from '../screens/prematch'
-import auto from '../screens/auto'
 import scoringmodal from '../screens/ScoringModal'
 import Auto from '../screens/auto'
 import Teleop from '../screens/teleop'
+import Postmatch from '../screens/postmatch'
 
 const screens = {
     MatchListScreen: {
@@ -70,6 +70,22 @@ const screens = {
               }
         }
     },
+    PostmatchScreen: {
+        screen: Postmatch,
+
+        navigationOptions: {
+            
+            headerTintColor: 'white',
+
+            headerStyle: {
+                backgroundColor: '#3486eb'
+            },
+
+            headerTitleStyle: {
+                color: 'white'
+              }
+        }
+    },
     ModalScreen: {
         screen: scoringmodal,
 
@@ -86,6 +102,7 @@ const screens = {
               }
         }
     },
+    
 
 }
 
