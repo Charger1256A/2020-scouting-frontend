@@ -3,13 +3,14 @@ import { TouchableOpacity, View, Text, ImageBackground, Image, ScrollView, Alert
 import { Icon } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import fieldImages from '../index';
+import parseErrorStack from 'react-native/Libraries/Core/Devtools/parseErrorStack';
 
 let postions = require('../assets/button_settings/teleoppositions.json');
 
 class Teleop extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { data: {}, isControlPanellVisible: false, isPowerCellModalVisible: false, lower1: 0, outer1: 0, inner1: 0, lower2: 0, outer2: 0, inner2: 0, lower3: 0, outer3: 0, inner3: 0, lower4: 0, outer4: 0, inner4: 0, lower5: 0, outer5: 0, inner5: 0, lower6: 0, outer6: 0, inner6: 0, telelower: 0, teleouter: 0, teleinner: 0, lowerclicks: 0, outerclicks: 0, innerclicks: 0 }
+        this.state = { data: {}, isControlPanellVisible: false, isPowerCellModalVisible: false, lower1: 0, outer1: 0, inner1: 0, lower2: 0, outer2: 0, inner2: 0, lower3: 0, outer3: 0, inner3: 0, lower4: 0, outer4: 0, inner4: 0, lower5: 0, outer5: 0, inner5: 0, lower6: 0, outer6: 0, inner6: 0, telelower: 0, teleouter: 0, teleinner: 0, lowerclicks: 0, outerclicks: 0, innerclicks: 0, rotationControl: false, positionControl: false }
     }
 
     componentDidMount() {
@@ -46,10 +47,15 @@ class Teleop extends React.Component {
             inner: 0,
         }
         data.teleEvents = []
+<<<<<<< HEAD
         data.telelower = 0;
         data.teleouter = 0;
         data.teleinner = 0;
         powercells = [];
+=======
+        data.rotatiocontrol = false;
+        data.positioncontrol = false;
+>>>>>>> f3464557bdd705adfbfa617300cc4dc7db9fa6e0
         this.setState({ data: data, initialTime: time });
     }
 
@@ -95,7 +101,7 @@ class Teleop extends React.Component {
                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Undo</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[prematchStyles.NextButton, { marginHorizontal: 60, marginBottom: 25 }]}>
+                    <TouchableOpacity style={[prematchStyles.NextButton, { marginHorizontal: 60, marginBottom: 25 }]} onPress={() => { this.props.navigation.navigate('PostmatchScreen', { data: this.state.data }) }} >
                         <View style={autoStyles.Center}>
                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Finish Match</Text>
                         </View>
@@ -109,7 +115,7 @@ class Teleop extends React.Component {
                             </View>
                             <View style={{ flex: 0.62, flexDirection: 'row', marginBottom: 50, marginHorizontal: 40 }}>
                                 <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
-                                    <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]}>
+                                    <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]} onPress={() => { this._updateCPModal('rotation'); }}>
                                         <View style={[autoStyles.Center, { marginBottom: 20 }]}>
                                             <Image style={{ flex: 1, resizeMode: 'contain', marginTop: 25 }} source={require('../assets/game_pieces/rotation-control.png')} />
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Rotation Control</Text>
@@ -117,7 +123,7 @@ class Teleop extends React.Component {
                                     </TouchableOpacity>
                                 </View>
                                 <View style={[autoStyles.Center, { marginHorizontal: 20 }]}>
-                                    <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]}>
+                                    <TouchableOpacity style={[autoStyles.ScoreButton, { width: '100%' }]} onPress={() => { this._updateCPModal('position'); }}>
                                         <View style={[autoStyles.Center, { marginBottom: 20 }]}>
                                             <Image style={{ flex: 1, resizeMode: 'contain', marginTop: 25 }} source={require('../assets/game_pieces/position-control.png')} />
                                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Position Control</Text>
@@ -315,6 +321,7 @@ class Teleop extends React.Component {
         console.log(JSON.stringify(data.teleEvents));
         console.log(new Date())
     }
+<<<<<<< HEAD
     _undo() {
         let data = this.state.data;
         let last = data.teleEvents.pop();
@@ -345,5 +352,51 @@ class Teleop extends React.Component {
         }
         this.setState({ data: data });
       }
+=======
+    _updateCPModal(event) {
+        let data = this.state.data;
+        var time = new Date() - new Date(this.state.initialTime);
+        time /= 1000;
+        if (this.state.rotationControl == false && event == 'rotation') {
+            this.setState({ rotationControl: true });
+            data.teleEvents.push({ "time": time.toString(), "rotation control": "complete" })
+            this.state.data.rotatiocontrol = true;
+            this._closeModal();
+        } else if (this.state.positionControl == false && this.state.rotationControl == false && event == 'position') {
+            Alert.alert(
+                'Control Panel',
+                'Rotation Control must be achieved before Position Control',
+                { cancelable: false },
+            );
+        }
+        else if (this.state.positionControl == false && this.state.rotationControl == true && event == 'position') {
+            this.setState({ positionControl: true });
+            data.teleEvents.push({ "time": time.toString(), "position control": "complete" })
+            this.state.data.positioncontrol = true;
+            this._closeModal();
+        } else if (this.state.rotationControl == true && event == 'rotation') {
+            Alert.alert(
+                'Rotation Control',
+                'Rotation Control has already been achieved',
+                [
+                    { text: 'OK', onPress: () => this._closeModal() },
+                ],
+                { cancelable: false },
+            );
+        } else if (this.state.positionControl == true && event == 'position') {
+            Alert.alert(
+                'Position Control',
+                'Position Control has already been achieved',
+                [
+                    { text: 'OK', onPress: () => this._closeModal() },
+                ],
+                { cancelable: false },
+            );
+        }
+
+        // this._closeModal();
+
+    }
+>>>>>>> f3464557bdd705adfbfa617300cc4dc7db9fa6e0
 }
 export default Teleop;
