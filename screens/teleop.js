@@ -45,10 +45,11 @@ class Teleop extends React.Component {
             outer: 0,
             inner: 0,
         }
-        data.autoEvents = []
-        data.autolower = 0;
-        data.autoouter = 0;
-        data.autoinner = 0;
+        data.teleEvents = []
+        data.telelower = 0;
+        data.teleouter = 0;
+        data.teleinner = 0;
+        powercells = [];
         this.setState({ data: data, initialTime: time });
     }
 
@@ -77,7 +78,7 @@ class Teleop extends React.Component {
                             <ScrollView style={{ flex: 0.88 }}>
                                 <Text style={[{ fontWeight: 'bold' }, autoStyles.Font]}>Event Feed</Text>
                                 <View style={{ flex: 1, marginTop: 10 }}>
-                                    <Text style={[autoStyles.Font, { fontSize: 15 }]}><Text style={{ fontWeight: 'bold' }}>Item Scored </Text>{JSON.stringify(this.state.data.autoEvents)}</Text>
+                                    <Text style={[autoStyles.Font, { fontSize: 15 }]}><Text style={{ fontWeight: 'bold' }}>Item Scored </Text>{JSON.stringify(this.state.data.teleEvents)}</Text>
                                 </View>
                             </ScrollView>
                             <View style={{ flex: 0.1, marginTop: 10, marginBottom: 50 }}>
@@ -89,7 +90,7 @@ class Teleop extends React.Component {
                     </View>
                 </View>
                 <View style={{ flex: 0.126, flexDirection: 'row', paddingHorizontal: 40 }}>
-                    <TouchableOpacity style={[autoStyles.UndoButton, { marginHorizontal: 30, marginBottom: 25 }]}>
+                    <TouchableOpacity style={[autoStyles.UndoButton, { marginHorizontal: 30, marginBottom: 25 }]} onPress = {() => { this._undo() }} >
                         <View style={autoStyles.Center}>
                             <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Undo</Text>
                         </View>
@@ -306,13 +307,43 @@ class Teleop extends React.Component {
         var inner = this.state.innerclicks;
         powercells.push(inner);
         var event = { Lowergoal: lower, Outergoal: outer, Innergoal: inner };
-        data.autoEvents.push({ "time": time.toString(), "event": event });
+        data.teleEvents.push({ "time": time.toString(), "event": event });
         data.telelower += lower;
         data.teleouter += outer;
-        data.teleouter += inner;
+        data.teleinner += inner;
         this.setState({ data: data });
-        console.log(JSON.stringify(data.autoEvents));
+        console.log(JSON.stringify(data.teleEvents));
         console.log(new Date())
     }
+    _undo() {
+        let data = this.state.data;
+        let last = data.teleEvents.pop();
+        if (last != null) {
+          last.event.success == 1 ? data[`auto${this._titleCase(last.event.itemScored)}`] -= 1 : "";
+          var i;
+          for (i = 0; i < powercells.length; i++) {
+            if (i == powercells.length - 3) {
+              let lastlower = powercells[i];
+              data.telelower -= lastlower;
+            }
+            if (i == powercells.length - 2) {
+              let lastouter = powercells[i];
+              data.teleouter -= lastouter;
+            }
+            if (i == powercells.length - 1) {
+              let lastinner = powercells[i]
+              data.teleinner -= lastinner;
+            }
+          }
+          var n = 0;
+          while (n < 3) {
+            n += 1
+            powercells.splice(-1, 1);
+          }
+    
+          this.setState({ data: data })
+        }
+        this.setState({ data: data });
+      }
 }
 export default Teleop;
