@@ -57,12 +57,12 @@ class QRCodeScreen extends React.Component {
                 />) : (
                 <TouchableOpacity
                   key={key}
-                  onPress={() => this._toggleEventModal(key)}
+                  // onPress={() => this._toggleEventModal(key)}
                 >
                   <ListItem
                     key={key}
                     title={key}
-                    rightTitle='Edit'
+                    // rightTitle='Edit'
                     />
                 </TouchableOpacity>
               )}
@@ -73,46 +73,6 @@ class QRCodeScreen extends React.Component {
           </View>
           {/* event modals */}
           {
-            ['auto', 'tele'].map(key => (
-            <Modal animationInTiming={150} animationIn='fadeIn' animationOutTiming={150} animationOut='fadeOut' style={{alignItems: 'center'}} isVisible={this.state[`${key}EventModalVisible`]}>
-              <View style={[autoStyles.ModalContent, {flex: 0.8}]}>
-                <View style={{flex: 0.15}}>
-                  <Text style={[autoStyles.Font, {textAlign: 'center'}]}>{key.charAt(0).toUpperCase() + key.slice(1)} Events</Text>
-                </View>
-                <ScrollView style={{flex: 0.7}}>{
-                  this.state.data[`${key}Events`].map((item, i) => (
-                    <View key={i} style={qrcodeStyles.Border}>
-                      <Text style={[autoStyles.Font, {fontSize: 15, fontWeight: 'bold', color: '#0f5863'}]}>{item.time.slice(0, -3)}.{item.time.slice(item.time.length-3)}</Text>
-                      <Text style={[autoStyles.Font, {fontSize: 15}]}>Item Scored: {item.event.itemScored}</Text>
-                      <Text style={[autoStyles.Font, {fontSize: 15}]}>Location: {item.event.location}</Text>
-                      <Text style={[autoStyles.Font, {fontSize: 15}]}>Position: {item.event.position}</Text>
-                      {item.event.success != null ? <Text style={[autoStyles.Font, {fontSize: 15}]}>Status: {item.event.success == 1 ? "success" : "fail"}</Text> : <Text></Text>}
-                      <TouchableOpacity
-                      onPress={() => Alert.alert(
-                        'Delete Event',
-                        'Are you sure you want to delete this event?',
-                        [
-                          {text: 'Yes', onPress: () => this._deleteEvent(key, i)},
-                          {text: 'No', onPress: () => console.log('Cancel Pressed'), style: 'cancel'}
-                        ],
-                        { cancelable: true }
-                      )
-                      }>
-                        <Text style={[autoStyles.Font, {fontSize: 15, fontWeight: 'bold', color: '#f74c4c'}]}>Delete</Text>
-                      </TouchableOpacity>
-                    </View>
-                  ))
-                }</ScrollView>
-                <View style={{flex: 0.15}}>
-                  <TouchableOpacity style={autoStyles.CancelButton} onPress={() => this._toggleEventModal(`${key}Events`)}>
-                    <View style={autoStyles.Center}>
-                      <Text style={[prematchStyles.Font, prematchStyles.ButtonFont]}>Finish</Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            </Modal>
-            ))
           }
         </View> 
       ); 
@@ -161,9 +121,9 @@ class QRCodeScreen extends React.Component {
       toggles event modal to view event list
       key - mode to view (auto or teleop)
     */
-    _toggleEventModal(key) {
-      key == 'teleEvents' ? this.setState({teleEventModalVisible: !this.state.teleEventModalVisible}) : this.setState({autoEventModalVisible: !this.state.autoEventModalVisible})
-    }
+    // _toggleEventModal(key) {
+    //   key == 'teleEvents' ? this.setState({teleEventModalVisible: !this.state.teleEventModalVisible}) : this.setState({autoEventModalVisible: !this.state.autoEventModalVisible})
+    // }
 
     /*
       deletes a specified event

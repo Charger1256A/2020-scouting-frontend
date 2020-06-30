@@ -315,7 +315,7 @@ class Teleop extends React.Component {
         data.teleLower += lower;
         data.teleOuter += outer;
         data.teleInner += inner;
-        this.setState({ data: data });
+        
         console.log(JSON.stringify(data.teleEvents));
         console.log(new Date())
         if (position == 1) {
@@ -348,6 +348,8 @@ class Teleop extends React.Component {
             data.tele6.outer += outer;
             data.tele6.inner += inner;
         }
+
+        this.setState({ data: data });
     }
     _updateCPModal(event) {
         let data = this.state.data;
@@ -355,10 +357,10 @@ class Teleop extends React.Component {
         time /= 1000;
         if (this.state.rotationControl == false && event == 'rotation') {
             this.setState({ rotationControl: true });
-            data.teleEvents.push({ "time": time.toString(), "rotation control": "complete" })
-            this.state.data.rotationcontrol = true;
-            this._closeModal();
             powercells.push('RC')
+            data.teleEvents.push({ "time": time.toString(), "rotation control": "complete" })
+            data.rotationcontrol = true;
+            this._closeModal();
         } else if (this.state.positionControl == false && this.state.rotationControl == false && event == 'position') {
             Alert.alert(
                 'Control Panel',
@@ -368,9 +370,9 @@ class Teleop extends React.Component {
         }
         else if (this.state.positionControl == false && this.state.rotationControl == true && event == 'position') {
             this.setState({ positionControl: true });
-            data.teleEvents.push({ "time": time.toString(), "position control": "complete" })
-            this.state.data.positioncontrol = true;
             powercells.push('PC')
+            data.teleEvents.push({ "time": time.toString(), "position control": "complete" })
+            data.positioncontrol = true;
             this._closeModal();
         } else if (this.state.rotationControl == true && event == 'rotation') {
             Alert.alert(
@@ -391,6 +393,8 @@ class Teleop extends React.Component {
                 { cancelable: false },
             );
         }
+
+        this.setState({ data: data });
 
         // this._closeModal();
 
@@ -429,13 +433,13 @@ class Teleop extends React.Component {
 
         if (powercells[len - 1] == "RC") {
             this.setState({ rotationControl: false });
-            this.state.data.rotationcontrol = false;
+            data.rotationcontrol = false;
             powercells.splice(-1, 1);
         }
 
         if (powercells[len - 1] == "PC") {
             this.setState({ positionControl: false });
-            this.state.data.positioncontrol = false;
+            data.positioncontrol = false;
             powercells.splice(-1, 1);
         }
 
