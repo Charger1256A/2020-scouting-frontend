@@ -318,6 +318,36 @@ class Teleop extends React.Component {
         this.setState({ data: data });
         console.log(JSON.stringify(data.teleEvents));
         console.log(new Date())
+        if (position == 1) {
+            data.tele1.lower += lower;
+            data.tele1.outer += outer;
+            data.tele1.inner += inner;
+        }
+        if (position == 2) {
+            data.tele2.lower += lower;
+            data.tele2.outer += outer;
+            data.tele2.inner += inner;
+        }
+        if (position == 3) {
+            data.tele3.lower += lower;
+            data.tele3.outer += outer;
+            data.tele3.inner += inner;
+        }
+        if (position == 4) {
+            data.tele4.lower += lower;
+            data.tele4.outer += outer;
+            data.tele4.inner += inner;
+        }
+        if (position == 5) {
+            data.tele5.lower += lower;
+            data.tele5.outer += outer;
+            data.tele5.inner += inner;
+        }
+        if (position == 6) {
+            data.tele6.lower += lower;
+            data.tele6.outer += outer;
+            data.tele6.inner += inner;
+        }
     }
     _updateCPModal(event) {
         let data = this.state.data;
@@ -396,7 +426,7 @@ class Teleop extends React.Component {
     
           this.setState({ data: data })
         }
-        
+
         if (powercells[len - 1] == "RC") {
             this.setState({ rotationControl: false });
             this.state.data.rotationcontrol = false;
