@@ -4,13 +4,14 @@ import { Icon } from 'react-native-elements';
 import Modal from 'react-native-modal';
 import fieldImages from '../index';
 import parseErrorStack from 'react-native/Libraries/Core/Devtools/parseErrorStack';
+import { pow } from 'react-native-reanimated';
 
 let postions = require('../assets/button_settings/teleoppositions.json');
 
 class Teleop extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { data: {}, isControlPanellVisible: false, isPowerCellModalVisible: false, lower1: 0, outer1: 0, inner1: 0, lower2: 0, outer2: 0, inner2: 0, lower3: 0, outer3: 0, inner3: 0, lower4: 0, outer4: 0, inner4: 0, lower5: 0, outer5: 0, inner5: 0, lower6: 0, outer6: 0, inner6: 0, telelower: 0, teleouter: 0, teleinner: 0, lowerclicks: 0, outerclicks: 0, innerclicks: 0, rotationControl: false, positionControl: false }
+        this.state = { data: {}, isControlPanellVisible: false, isPowerCellModalVisible: false, lower1: 0, outer1: 0, inner1: 0, lower2: 0, outer2: 0, inner2: 0, lower3: 0, outer3: 0, inner3: 0, lower4: 0, outer4: 0, inner4: 0, lower5: 0, outer5: 0, inner5: 0, lower6: 0, outer6: 0, inner6: 0, lowerclicks: 0, outerclicks: 0, innerclicks: 0, rotationControl: false, positionControl: false, position: "0" }
     }
 
     componentDidMount() {
@@ -47,15 +48,11 @@ class Teleop extends React.Component {
             inner: 0,
         }
         data.teleEvents = []
-<<<<<<< HEAD
-        data.telelower = 0;
-        data.teleouter = 0;
-        data.teleinner = 0;
-        powercells = [];
-=======
-        data.rotatiocontrol = false;
+        data.rotationcontrol = false;
         data.positioncontrol = false;
->>>>>>> f3464557bdd705adfbfa617300cc4dc7db9fa6e0
+        data.teleLower = 0;
+        data.teleOuter = 0;
+        data.teleInner = 0;
         this.setState({ data: data, initialTime: time });
     }
 
@@ -88,9 +85,9 @@ class Teleop extends React.Component {
                                 </View>
                             </ScrollView>
                             <View style={{ flex: 0.1, marginTop: 10, marginBottom: 50 }}>
-                                <Text style={autoStyles.Font}>Lower: {this.state.data.telelower}</Text>
-                                <Text style={autoStyles.Font}>Outer: {this.state.data.teleouter}</Text>
-                                <Text style={autoStyles.Font}>Inner: {this.state.data.teleinner}</Text>
+                                <Text style={autoStyles.Font}>Lower: {this.state.data.teleLower}</Text>
+                                <Text style={autoStyles.Font}>Outer: {this.state.data.teleOuter}</Text>
+                                <Text style={autoStyles.Font}>Inner: {this.state.data.teleInner}</Text>
                             </View>
                         </View>
                     </View>
@@ -267,11 +264,11 @@ class Teleop extends React.Component {
         if (id == "CP") {
             this._openCPModal();
         } else {
-            this._openPCModal();
+            this._openPCModal(id);
         }
     }
     _openPCModal(id) {
-        this.setState({ isPowerCellModalVisible: true });
+        this.setState({ isPowerCellModalVisible: true, position: id });
         // Alert.alert("You are attempting to open a model");
     }
     _openCPModal() {
@@ -306,6 +303,7 @@ class Teleop extends React.Component {
         let data = this.state.data;
         var time = new Date() - new Date(this.state.initialTime);
         time /= 1000
+        var position = this.state.position
         var lower = this.state.lowerclicks;
         powercells.push(lower);
         var outer = this.state.outerclicks;
@@ -313,46 +311,14 @@ class Teleop extends React.Component {
         var inner = this.state.innerclicks;
         powercells.push(inner);
         var event = { Lowergoal: lower, Outergoal: outer, Innergoal: inner };
-        data.teleEvents.push({ "time": time.toString(), "event": event });
-        data.telelower += lower;
-        data.teleouter += outer;
-        data.teleinner += inner;
+        data.teleEvents.push({ "time": time.toString(), "event": event, "position": position });
+        data.teleLower += lower;
+        data.teleOuter += outer;
+        data.teleInner += inner;
         this.setState({ data: data });
         console.log(JSON.stringify(data.teleEvents));
         console.log(new Date())
     }
-<<<<<<< HEAD
-    _undo() {
-        let data = this.state.data;
-        let last = data.teleEvents.pop();
-        if (last != null) {
-          last.event.success == 1 ? data[`auto${this._titleCase(last.event.itemScored)}`] -= 1 : "";
-          var i;
-          for (i = 0; i < powercells.length; i++) {
-            if (i == powercells.length - 3) {
-              let lastlower = powercells[i];
-              data.telelower -= lastlower;
-            }
-            if (i == powercells.length - 2) {
-              let lastouter = powercells[i];
-              data.teleouter -= lastouter;
-            }
-            if (i == powercells.length - 1) {
-              let lastinner = powercells[i]
-              data.teleinner -= lastinner;
-            }
-          }
-          var n = 0;
-          while (n < 3) {
-            n += 1
-            powercells.splice(-1, 1);
-          }
-    
-          this.setState({ data: data })
-        }
-        this.setState({ data: data });
-      }
-=======
     _updateCPModal(event) {
         let data = this.state.data;
         var time = new Date() - new Date(this.state.initialTime);
@@ -360,8 +326,9 @@ class Teleop extends React.Component {
         if (this.state.rotationControl == false && event == 'rotation') {
             this.setState({ rotationControl: true });
             data.teleEvents.push({ "time": time.toString(), "rotation control": "complete" })
-            this.state.data.rotatiocontrol = true;
+            this.state.data.rotationcontrol = true;
             this._closeModal();
+            powercells.push('RC')
         } else if (this.state.positionControl == false && this.state.rotationControl == false && event == 'position') {
             Alert.alert(
                 'Control Panel',
@@ -373,6 +340,7 @@ class Teleop extends React.Component {
             this.setState({ positionControl: true });
             data.teleEvents.push({ "time": time.toString(), "position control": "complete" })
             this.state.data.positioncontrol = true;
+            powercells.push('PC')
             this._closeModal();
         } else if (this.state.rotationControl == true && event == 'rotation') {
             Alert.alert(
@@ -397,6 +365,52 @@ class Teleop extends React.Component {
         // this._closeModal();
 
     }
->>>>>>> f3464557bdd705adfbfa617300cc4dc7db9fa6e0
+
+    _undo() {
+        let data = this.state.data;
+        let last = data.teleEvents.pop();
+        var len = powercells.length
+
+        if (last != null && powercells[len - 1] != "RC" && powercells[len - 1] != "PC") {
+        //   last.event.success == 1 ? data[`auto${this._titleCase(last.event.itemScored)}`] -= 1 : "";
+          var i;
+          for (i = 0; i < powercells.length; i++) {
+            if (i == powercells.length - 3) {
+              let lastlower = powercells[i];
+              data.teleLower -= lastlower;
+            }
+            if (i == powercells.length - 2) {
+              let lastouter = powercells[i];
+              data.teleOuter -= lastouter;
+            }
+            if (i == powercells.length - 1) {
+              let lastinner = powercells[i]
+              data.teleInner -= lastinner;
+            }
+          }
+          var n = 0;
+          while (n < 3) {
+            n += 1
+            powercells.splice(-1, 1);
+          }
+    
+          this.setState({ data: data })
+        }
+        
+        if (powercells[len - 1] == "RC") {
+            this.setState({ rotationControl: false });
+            this.state.data.rotationcontrol = false;
+            powercells.splice(-1, 1);
+        }
+
+        if (powercells[len - 1] == "PC") {
+            this.setState({ positionControl: false });
+            this.state.data.positioncontrol = false;
+            powercells.splice(-1, 1);
+        }
+
+
+        this.setState({ data: data });
+      }
 }
 export default Teleop;
