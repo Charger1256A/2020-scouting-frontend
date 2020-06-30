@@ -98,24 +98,24 @@ class QRCodeScreen extends React.Component {
           matches[matchNo].scouter = this.state.data.name;
           AsyncStorage.setItem(this.state.data.event, JSON.stringify(matches)); // set list of new matches
           AsyncStorage.setItem(`${this.state.data.match}_${this.state.data.event}`, JSON.stringify(this.state.data)); // set new match data for event. pulled when you want to review a previous match
-          this.props.navigation.navigate('Matches', matches);
+          this.props.navigation.navigate('MatchListScreen', matches);
         });      
       });
     }
 
-    _rescoutMatch() {
-      AsyncStorage.getItem("currentEvent").then(event => {
-        AsyncStorage.getItem(event).then(matches => {
-          matches = JSON.parse(matches); // data must be updated for the homescreen to add a scouted match
-          let matchNo = parseInt(this.state.data.match.replace('Q', ''))-1;
-          matches[matchNo].scouted = false;
-          matches[matchNo].scouter = "";
-          AsyncStorage.setItem(this.state.data.event, JSON.stringify(matches)); // set list of new matches
-          AsyncStorage.removeItem(`${this.state.data.match}_${this.state.data.event}`); // remove match data for that match
-          this.props.navigation.navigate('Matches', matches);
-        });      
-      });
-    }
+    // _rescoutMatch() {
+    //   AsyncStorage.getItem("currentEvent").then(event => {
+    //     AsyncStorage.getItem(event).then(matches => {
+    //       matches = JSON.parse(matches); // data must be updated for the homescreen to add a scouted match
+    //       let matchNo = parseInt(this.state.data.match.replace('Q', ''))-1;
+    //       matches[matchNo].scouted = false;
+    //       matches[matchNo].scouter = "";
+    //       AsyncStorage.setItem(this.state.data.event, JSON.stringify(matches)); // set list of new matches
+    //       AsyncStorage.removeItem(`${this.state.data.match}_${this.state.data.event}`); // remove match data for that match
+    //       this.props.navigation.navigate('MatchListScreen', matches);
+    //     });      
+    //   });
+    // }
 
     /* 
       toggles event modal to view event list
