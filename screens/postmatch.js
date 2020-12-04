@@ -25,7 +25,7 @@ class Postmatch extends React.Component {
 
     render() {
       const soloHangText = ['No Hang', 'Hang', 'Balanced Hang'];
-      const assistedHangText = ['No Assisting Hang', 'Assisting Hang', 'Assisted Hang'];
+      const assistedHangText = ['No Assisting Hang', 'Assisted Hang', 'Assisted Balance Hang'];
       return (
         <View style={{ flex: 1, marginHorizontal: 40 }}>
           {/* Notes */}
